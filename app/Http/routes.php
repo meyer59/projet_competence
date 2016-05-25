@@ -11,9 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +24,22 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+
+    //Route::get('/', 'HomeController@index');
+     Route::auth();
+    Session::put('id_prof', 1);
+//    Route::get('/', function () {
+//        return view('login2');
+//    });
+    //********************ROUTE PROF**************************/
+    //acceuil du prof
+    Route::get('/prof/{n}/index', "Prof_index@getIndex")->where('n','\d+');
+    Route::get('/prof/{n}/eval', "Prof_index@getEval")->where('n','\d+');
+
+    //creation des formulaires
+    //Route::get('/prof/{n}/creation_form', "Prof_creationForm@index")->where('n','\d+');
+    Route::get('/prof/getcompetence', "Prof_index@getcompetencejson");
+    Route::get('/prof/geteleve', "Prof_index@eleveenjson");
+    Route::post('/prof/postcomptence', "Prof_index@postcomptence");
+    //*****************FIN ROUTE PROF************************/
 });

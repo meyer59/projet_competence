@@ -35,11 +35,18 @@ Route::group(['middleware' => ['web']], function () {
     //acceuil du prof
     Route::get('/prof/{n}/index', "Prof_index@getIndex")->where('n','\d+');
     Route::get('/prof/{n}/eval', "Prof_index@getEval")->where('n','\d+');
+    Route::get('/prof/{n}/rapport', "Prof_index@getRapport")->where('n','\d+');
 
     //creation des formulaires
     //Route::get('/prof/{n}/creation_form', "Prof_creationForm@index")->where('n','\d+');
     Route::get('/prof/getcompetence', "Prof_index@getcompetencejson");
+    Route::get('/prof/detail_classe', "Prof_index@detail_classe");
+    Route::get('/prof/graph_comparaisonProfEleve', "Prof_index@graph_comparaisonProfEleve");
+    Route::get('/prof/graph_comparaisonEleveEleve', "Prof_index@graph_comparaisonEleveEleve");
+    Route::get('/prof/graph_DetailEleve', "Prof_index@graph_DetailEleve");
+    Route::get('/prof/getcompetenceByMatiere', "Prof_index@getcompetenceByMatierejson");
     Route::get('/prof/geteleve', "Prof_index@eleveenjson");
+    Route::get('/prof/eleveEtmatiereEnjson', "Prof_index@eleveEtmatiereEnjson");
     Route::post('/prof/postcomptence', "Prof_index@postcomptence");
     //*****************FIN ROUTE PROF************************/
 });

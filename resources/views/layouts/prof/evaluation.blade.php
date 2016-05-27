@@ -4,6 +4,7 @@
     @parent
     <link href="{{ asset("assets/global/plugins/ion.rangeslider/css/ion.rangeSlider.css")}}" rel="stylesheet" type="text/css">
     <link href="{{ asset("assets/global/plugins/ion.rangeslider/css/ion.rangeSlider.skinHTML5.css")}}" rel="stylesheet" type="text/css">
+    <link href="{{ asset("assets/global/plugins/bootstrap-toastr/toastr.min.css")}}" rel="stylesheet" type="text/css">
     @stop
 @section("content_body")
     @parent
@@ -33,17 +34,6 @@
                                         <span class="caption-subject font-red bold uppercase"> Formulaire d'évaluation
                                             <span class="step-title"> Etape 1 de 3 </span>
                                         </span>
-                        </div>
-                        <div class="actions">
-                            <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                                <i class="icon-cloud-upload"></i>
-                            </a>
-                            <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                                <i class="icon-wrench"></i>
-                            </a>
-                            <a class="btn btn-circle btn-icon-only btn-default" href="javascript:;">
-                                <i class="icon-trash"></i>
-                            </a>
                         </div>
                     </div>
                     <div class="portlet-body form">
@@ -129,7 +119,7 @@
                                         <div class="tab-pane" id="tab3">
                                             <div class="form-actions">
                                                 <div class="row">
-                                                    <div class="col-md-offset-3 col-md-9">
+                                                    <div class="col-md-offset-3 col-md-9 soumettre">
                                                         <a href="javascript:;" class="btn default grey-cascade button-previous">
                                                             <i class="fa fa-angle-left"></i> Retour </a>
                                                         <a href="javascript:;" class="btn btn-outline green button-next"> Continuer
@@ -150,7 +140,7 @@
                                 </div>
                                 <div class="form-actions">
                                     <div class="row">
-                                        <div class="col-md-offset-3 col-md-9">
+                                        <div class="col-md-offset-3 col-md-9 soumettre">
                                             <a href="javascript:;" class="btn default grey-cascade button-previous">
                                                 <i class="fa fa-angle-left"></i> Retour </a>
                                             <a href="javascript:;" class="btn btn-outline green button-next"> Continuer
@@ -176,6 +166,7 @@
 @section("js")
     @parent
     <script src="{{ asset("assets/global/plugins/ion.rangeslider/js/ion.rangeSlider.min.js")}}" type="text/javascript"></script>
+    <script src="{{ asset("assets/global/plugins/bootstrap-toastr/toastr.min.js")}}" type="text/javascript"></script>
     <script>
         $( document ).ready(function() {
             $(".sliderNote").on("change", function () {
@@ -206,7 +197,7 @@
                        $("#select_eleve").empty();//vide la liste des eleves
                        $("#select_competence").empty(); // si on change de classe on vide les competence de la classe avec
                        $.each(donnees, function (i, item) {
-                           $("#select_eleve").append("<option value="+i+">"+item+"</option>");
+                           $("#select_eleve").append('<option value="'+i+'">'+item+'</option>');
                        });
                    }
                })
@@ -234,7 +225,7 @@
                            $.each(donnees.options, function (i, item) {
                                //example: item = PHP alors ondoit iterer pour tt les competence
                                $.each(item, function (id, competence) {
-                                   $('optgroup[label="' + i + '"]').append("<option value=" + id + ">" + competence + "</option>");
+                                   $('optgroup[label="' + i + '"]').append("<option value=\"" + id + "\">" + competence + "</option>");
                                });
                            });
                            $("#tab3 #competForm").empty();
@@ -260,7 +251,9 @@
                     url: "{{url("/prof/postcomptence")}}",
                     data: $("#submit_form").serialize(),
                     success: function (donnees) {
-
+                        toastr.options.onHidden = function() { location.reload(true); }
+                        toastr.success("L'évaluation a bien été prise en compte, merci.", "Succès")
+                        $(".soumettre").empty(); //pour interdire la resoumission du formulaire
                     }
                 });
                 window.setTimeout(function() {

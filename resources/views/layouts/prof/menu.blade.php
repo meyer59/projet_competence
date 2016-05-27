@@ -14,8 +14,8 @@
                 <span class="arrow"></span>
             </a>
         </li>
-        <li class="nav-item {{(Request::segment(3) == 'Rapport') ? 'active' : '' }}  ">
-            <a href="javascript:;" class="nav-link nav-toggle">
+        <li class="nav-item {{(Request::segment(3) == 'rapport') ? 'active' : '' }}  ">
+            <a href="{{url("prof/".Session::get('id_prof')."/rapport")}}" class="nav-link nav-toggle">
                 <i class="icon-graph"></i>
                 <span class="title">Rapport</span>
                 <span class="arrow"></span>

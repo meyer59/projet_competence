@@ -365,12 +365,12 @@
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <span class="username username-hide-on-mobile"> F.Dupont </span>
                                 <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                                <img alt="" class="img-circle" src="{{ asset("assets/layouts/layout4/img/avatar9.jpg")}}" /> </a>
+                                <img alt="" class="img-circle" src="{{ asset("assets/layouts/layout4/img/prof_".Session::get('id_prof').".jpg")}}" /> </a>
                             <ul class="dropdown-menu dropdown-menu-default">
-                                <li>
-                                    <a href="page_user_profile_1.html">
-                                        <i class="icon-user"></i> My Profile </a>
-                                </li>
+                                {{--<li>--}}
+                                    {{--<a href="page_user_profile_1.html">--}}
+                                        {{--<i class="icon-user"></i> Mon profile </a>--}}
+                                {{--</li>--}}
                                 {{--<li>--}}
                                     {{--<a href="app_calendar.html">--}}
                                         {{--<i class="icon-calendar"></i> My Calendar </a>--}}
@@ -394,7 +394,7 @@
                                 {{--</li>--}}
                                 <li>
                                     <a href="page_user_login_1.html">
-                                        <i class="icon-key"></i> Log Out </a>
+                                        <i class="icon-key"></i> Déconnexion </a>
                                 </li>
                             </ul>
                         </li>

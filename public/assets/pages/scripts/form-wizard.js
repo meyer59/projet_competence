@@ -50,7 +50,7 @@ var FormWizard = function () {
                 $('[id="titre'+optgroup+'"]').after('<div class="form-group form-md-line-input" id="formgroup'+val+'">\n\
                                                 <h4 >'+$('#select_competence option[value="'+val+'"]').text()+'</h4>\n\
                                                     </div>');
-                    //ajouter chaque eleve pour la competence selectionné
+                    //ajouter chaque eleve pour la competence selectionné (competence1 eleve1 - competence1 eleve2 etc)
                     $("#formgroup"+val).after('<div class="row" id="formgroup'+val+'_">');
                     $.each(tabEleve,function(key,val2){
                         var eDiv="";

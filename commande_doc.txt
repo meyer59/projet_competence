@@ -1,0 +1,3 @@
+php phpdoc.phar -d [dossier a source a generer la doc] -t [dossier destination ou stocker la doc generé] --template="responsive-twig"
+exemple:
+php phpdoc.phar -d C:\wamp\www\projet_competence_laravel\app -t C:\wamp\www\projet_competence_laravel\doc --template="responsive-twig"

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class Prof_index extends Controller
 {
@@ -540,5 +541,36 @@ class Prof_index extends Controller
                 ],
             ]];
         return view("layouts.prof.detail_classe",$donnee_vue);
+    }
+    public function getProfile()//la page profile du prof
+    {
+        //prendre le id en session pour le prof et voir si il correspond au id de lurl
+        //donnee a recevoir dans la vue
+        $donnee_vue = ["prenom"=>"Francois",
+             "nom"=>"dupont",
+            "adresse"=>"16 tue jean moulin",
+            "ville"=>"LYON",
+            "cp"=>"69000",
+            "telephone"=>"0625588778",
+            "role"=>"Professeur",
+
+
+        ];
+        return view("layouts.prof.profile",$donnee_vue);
+    }
+    public function postEditProfil(request $request)//modification des donne du prof. aide sur les input laravel https://laravel.com/docs/5.2/requests#old-input
+    {
+
+        $validator =  $this->validate($request, [
+            'nom' => 'required|max:50|',
+            'prenom' => 'required|max:50',
+        ]);/*
+        if($validator) {
+            return redirect(url()->previous())
+                ->withErrors($validator)
+                ->withInput();
+        }*/
+       // return  back()->with("statut","ok","msg","Les données ont bien été mis à jour"); //si c ok
+        return  back()->with("statut","bad","msg","Les données ont bien été mis à jour"); // si c bad
     }
 }

@@ -86,8 +86,8 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <h3 class="block">Veuillez selectionner au minimum un élève</h3>
-                                            <div class="form-group">
+                                            <h3 class="block choixeleve">Veuillez selectionner au minimum un élève</h3>
+                                            <div class="form-group choixeleve">
                                                 <label class="control-label col-md-3">Categorie
                                                     <span class="required"> * </span>
                                                 </label>
@@ -101,6 +101,30 @@
                                                                 <span class="inc"></span>
                                                                 <span class="check"></span>
                                                                 <span class="box"></span> Tout les élèves </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h3 class="block">Type d'éxamen</h3>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3">Categorie
+                                                    <span class="required"> * </span>
+                                                </label>
+                                                <div class="col-md-4">
+                                                    <div class="md-radio-list">
+                                                        <div class="md-radio">
+                                                            <input type="radio" id="checkbox112_6" name="type_eval" value="eval_simple" class="md-radiobtn" checked required>
+                                                            <label for="checkbox112_6">
+                                                                <span></span>
+                                                                <span class="check"></span>
+                                                                <span class="box"></span> Evaluation simple </label>
+                                                        </div>
+                                                        <div class="md-radio">
+                                                            <input type="radio" id="checkbox112_7" name="type_eval" value="exam" class="md-radiobtn" required>
+                                                            <label for="checkbox112_7">
+                                                                <span></span>
+                                                                <span class="check"></span>
+                                                                <span class="box"></span> Examen </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -206,6 +230,15 @@
            });
             $("#select_eleve").on("change",function(e){
                 load_competence();
+            });
+            $("#checkbox112_7,#checkbox112_6").on("change",function(e){
+                var val = ($(this).val());
+                if(val=="exam")
+                {
+                    $(".choixeleve").hide();
+                }else{ //eval simple
+                    $(".choixeleve").show();
+                }
             });
                //recuperation des competence selon la classe choisie
                function load_competence() {

@@ -152,9 +152,10 @@
 <script>
     //declaration des variable referent des url en js. Car il ny a pas de blade en js
     //url pour le graphe de comparaison eleve prof
-    url_chart_comparaison_prof_eleve ="{{url("prof/graph_comparaisonProfEleve")}}"
-    url_chart_comparaison_eleve_eleve ="{{url("prof/graph_comparaisonEleveEleve")}}"
-    url_chart_detail_eleve_fancybox ="{{url("prof/graph_DetailEleve")}}"
+    url_chart_comparaison_prof_eleve ="{{url("prof/graph_comparaisonProfEleve")}}";
+    url_chart_comparaison_eleve_eleve ="{{url("prof/graph_comparaisonEleveEleve")}}";
+    url_chart_detail_eleve_fancybox ="{{url("prof/graph_DetailEleve")}}";
+    url_chart_detail_eleve_prof_fancybox="{{url("prof/graph_DetailEleveProf")}}";
     classeId = "";
     competenceId = "";
     matiereId = "";
@@ -166,8 +167,12 @@
     <script src="{{ asset("assets/global/plugins/highcharts/js/highcharts-3d.js")}}" type="text/javascript"></script>
     <script src="{{ asset("assets/global/plugins/highcharts/js/highcharts-more.js")}}" type="text/javascript"></script>
     <script src="{{ asset("assets/global/plugins/highcharts/js/modules/exporting.js")}}" type="text/javascript"></script>
+    <script src="{{ asset("assets/global/plugins/highcharts/js/modules/export-csv.js")}}" type="text/javascript"></script>
     <script src="{{ asset("assets/pages/scripts/charts-highcharts.js")}}" type="text/javascript"></script>
     <script src="{{ asset("assets/global/plugins/fancybox/source/jquery.fancybox.js")}}" type="text/javascript"></script>
+    <script src="{{ asset("assets/global/plugins/datatables/datatables.min.js")}}" type="text/javascript"></script>
+    <script src="{{ asset("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js")}}" type="text/javascript"></script>
+    <script src="{{ asset("assets/pages/scripts/table-datatables-buttons.js")}}" type="text/javascript"></script>
     <script>
         $( document ).ready(function() {
             moment.locale('fr');//moment.js en francais pour la daterangepicker

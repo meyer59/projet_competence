@@ -157,7 +157,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Bestmomo\Scafold\ScafoldServiceProvider::class,
-        
+        Propaganistas\LaravelPhone\LaravelPhoneServiceProvider::class,
+
 
     ],
 

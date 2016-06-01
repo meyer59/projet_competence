@@ -4,6 +4,9 @@ var TableDatatablesButtons = function () {
         var table = $('#detail_eleve');
 
         var oTable = table.dataTable({
+            fnInitComplete: function (settings, data) {
+                //alert( 'Saved filter was:  ');
+            },
 
             // Internationalisation. For more info refer to http://datatables.net/manual/i18n
             "language": {

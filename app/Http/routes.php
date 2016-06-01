@@ -25,30 +25,41 @@
 
 Route::group(['middleware' => ['web']], function () {
 
-    //Route::get('/', 'HomeController@index');
-     Route::auth();
-    Session::put('id_prof', 1);
-//    Route::get('/', function () {
-//        return view('login2');
-//    });
+    //Route moché
+    Route::auth();
+    Route::get('/check_role','HomeController@redirect');
+    Route::get('/deconnexion','HomeController@logout');
+    Route::get('/', 'HomeController@index');
     //********************ROUTE PROF**************************/
-    //acceuil du prof
-    Route::get('/prof/{n}/index', "Prof_index@getIndex")->where('n','\d+');
-    Route::get('/prof/{n}/eval', "Prof_index@getEval")->where('n','\d+');
-    Route::get('/prof/{n}/rapport', "Prof_index@getRapport")->where('n','\d+');
-    Route::get('/prof/{n}/profile', "Prof_index@getProfile")->where('n','\d+');
+    //route restreinte pour les utilisateur authentifié
+    Route::group(['middleware' => ['auth']], function () {
+            //route restreint pour les professeurs
+            Route::group(['middleware' => ['prof']], function () {
+                //acceuil du prof
+                Route::get('/prof/index', "Prof_index@getIndex")->name('prof_index');
+                Route::get('/prof/eval', "Prof_index@getEval");
+                Route::get('/prof/rapport', "Prof_index@getRapport");
+                Route::get('/prof/profile', "Prof_index@getProfile");
 
-    //creation des formulaires
-    //Route::get('/prof/{n}/creation_form', "Prof_creationForm@index")->where('n','\d+');
-    Route::get('/prof/getcompetence', "Prof_index@getcompetencejson");
-    Route::get('/prof/detail_classe', "Prof_index@detail_classe");
-    Route::post('/prof/editProfil', "Prof_index@postEditProfil");
-    Route::get('/prof/graph_comparaisonProfEleve', "Prof_index@graph_comparaisonProfEleve");
-    Route::get('/prof/graph_comparaisonEleveEleve', "Prof_index@graph_comparaisonEleveEleve");
-    Route::get('/prof/graph_DetailEleve', "Prof_index@graph_DetailEleve");
-    Route::get('/prof/getcompetenceByMatiere', "Prof_index@getcompetenceByMatierejson");
-    Route::get('/prof/geteleve', "Prof_index@eleveenjson");
-    Route::get('/prof/eleveEtmatiereEnjson', "Prof_index@eleveEtmatiereEnjson");
-    Route::post('/prof/postcomptence', "Prof_index@postcomptence");
-    //*****************FIN ROUTE PROF************************/
+                //creation des formulaires
+                //Route::get('/prof/{n}/creation_form', "Prof_creationForm@index")->where('n','\d+');
+                Route::get('/prof/getcompetence', "Prof_index@getcompetencejson");
+                Route::get('/prof/detail_classe', "Prof_index@detail_classe");
+                Route::post('/prof/editProfil', "Prof_index@postEditProfil");
+                Route::get('/prof/graph_comparaisonProfEleve', "Prof_index@graph_comparaisonProfEleve");
+                Route::get('/prof/graph_comparaisonEleveEleve', "Prof_index@graph_comparaisonEleveEleve");
+                Route::get('/prof/graph_DetailEleve', "Prof_index@graph_DetailEleve");
+                Route::get('/prof/getcompetenceByMatiere', "Prof_index@getcompetenceByMatierejson");
+                Route::post('/prof/editProfilPhoto', "Prof_index@editProfilPhoto");
+                Route::post('/prof/editProfilpassword', "Prof_index@editProfilpassword");
+                Route::get('/prof/geteleve', "Prof_index@eleveenjson");
+                Route::get('/prof/eleveEtmatiereEnjson', "Prof_index@eleveEtmatiereEnjson");
+                Route::post('/prof/postcomptence', "Prof_index@postcomptence");
+
+                //CSRF exlus
+                Route::post('/prof/updateEleve', "Prof_index@updateEleve"); // pour le plug in xeditable de mise a jour des eleves
+               // Route::post('/prof/graph_DetailEleveProf', "Prof_index@graph_DetailEleveProf");
+                //*****************FIN ROUTE PROF************************/
+        });
+    });
 });

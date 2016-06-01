@@ -35,7 +35,7 @@
                     <div class="portlet light profile-sidebar-portlet bordered">
                         <!-- SIDEBAR USERPIC -->
                         <div class="profile-userpic">
-                            <img src="{{ asset("assets/pages/media/profile/prof_".Session::get('id_prof').".jpg")}}" class="img-responsive" alt=""> </div>
+                            <img src="{{ asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")}}" class="img-responsive" alt=""> </div>
                         <!-- END SIDEBAR USERPIC -->
                         <!-- SIDEBAR USER TITLE -->
                         <div class="profile-usertitle">
@@ -58,24 +58,16 @@
                     @if(session("statut")=="ok")
                     <div class="alert alert-block alert-success fade in">
                         <button type="button" class="close" data-dismiss="alert"></button>
-                        <h4 class="alert-heading">Success!</h4>
-                        <p> {{session("msg")}} </p>
-                        <p>
-                            <a class="btn green" href="javascript:;"> Do this </a>
-                            <a class="btn btn-link" href="javascript:;"> Cancel </a>
-                        </p>
+                        <h5 class="alert-heading">Succès</h5>
+                        <p> Vos données ont bien été mises à jour </p>
                     </div>
                     @endif
                     @if(session("statut")=="bad")
-                        <div class="alert alert-block alert-error fade in">
-                            <button type="button" class="close" data-dismiss="alert"></button>
-                            <h4 class="alert-heading">Success!</h4>
-                            <p> {{session("msg")}} </p>
-                            <p>
-                                <a class="btn green" href="javascript:;"> Do this </a>
-                                <a class="btn btn-link" href="javascript:;"> Cancel </a>
-                            </p>
-                        </div>
+                            <div class="alert alert-block alert-danger fade in">
+                                <button type="button" class="close" data-dismiss="alert"></button>
+                                <h5 class="alert-heading">Oops...une erreur est survenue</h5>
+                                <p> {{session("msg")}} </p>
+                            </div>
                     @endif
                     <div class="row">
                         <div class="col-md-12">
@@ -142,11 +134,12 @@
                                         <!-- CHANGE AVATAR TAB -->
                                         <div class="tab-pane" id="tab_1_2">
                                             <p> Metre à jour votre photo de profil</p>
-                                            <form action="#" role="form">
+                                            <form action="{{url("prof/editProfilPhoto")}}" method="post" role="form">
+                                                {{csrf_field()}}
                                                 <div class="form-group">
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                            <img src="{{ asset("assets/pages/media/profile/prof_".Session::get('id_prof').".jpg")}}" alt=""> </div>
+                                                            <img src="{{ asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")}}" alt=""> </div>
                                                         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
                                                         <div>
                                                                         <span class="btn default btn-file">
@@ -158,71 +151,38 @@
                                                     </div>
                                                 </div>
                                                 <div class="margin-top-10">
-                                                    <a href="javascript:;" class="btn green"> Valider </a>
+                                                    <button href="javascript:;" class="btn green"> Valider </button>
                                                 </div>
                                             </form>
                                         </div>
                                         <!-- END CHANGE AVATAR TAB -->
                                         <!-- CHANGE PASSWORD TAB -->
                                         <div class="tab-pane" id="tab_1_3">
-                                            <form action="#">
-                                                <div class="form-group">
+                                            <form action="{{url("prof/editProfilpassword")}}" method="post">
+                                                {{csrf_field()}}
+                                                <div class="form-group @if($errors->first('actual-password')) has-error @endif">
                                                     <label class="control-label">Mot de passe actuel</label>
-                                                    <input type="actual-password" class="form-control"> </div>
-                                                <div class="form-group">
+                                                    <input type="password" name="actual-password" class="form-control">
+                                                    @if($errors->first('actual-password'))<span class="help-block">{{ $errors->first('actual-password') }}</span>  @endif
+                                                </div>
+                                                <div class="form-group @if($errors->first('password')) has-error @endif">
                                                     <label class="control-label">Nouveau mot de passe</label>
-                                                    <input type="new-password" class="form-control"> </div>
-                                                <div class="form-group">
+                                                    <input type="password" name="password" class="form-control">
+                                                    @if($errors->first('password'))<span class="help-block">{{ $errors->first('password') }}</span>  @endif
+                                                </div>
+                                                <div class="form-group @if($errors->first('password_confirmation')) has-error @endif">
                                                     <label class="control-label">Confirmer votre nouveau mot de passe</label>
-                                                    <input type="re-password" class="form-control"> </div>
+                                                    <input type="password" name="password_confirmation" class="form-control">
+                                                    @if($errors->first('password_confirmation'))<span class="help-block">{{ $errors->first('password_confirmation') }}</span>  @endif
+                                                </div>
                                                 <div class="margin-top-10">
-                                                    <a href="javascript:;" class="btn green"> Changer le mot de passe </a>
+                                                    <button href="javascript:;" class="btn green"> Changer le mot de passe </button>
                                                 </div>
                                             </form>
                                         </div>
                                         <!-- END CHANGE PASSWORD TAB -->
                                         <!-- PRIVACY SETTINGS TAB -->
-                                        <div class="tab-pane" id="tab_1_4">
-                                            <form action="#">
-                                                <table class="table table-light table-hover">
-                                                    <tbody><tr>
-                                                        <td> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus.. </td>
-                                                        <td>
-                                                            <label class="uniform-inline">
-                                                                <div class="radio"><span><input type="radio" name="optionsRadios1" value="option1"></span></div> Yes </label>
-                                                            <label class="uniform-inline">
-                                                                <div class="radio"><span class="checked"><input type="radio" name="optionsRadios1" value="option2" checked=""></span></div> No </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> Enim eiusmod high life accusamus terry richardson ad squid wolf moon </td>
-                                                        <td>
-                                                            <label class="uniform-inline">
-                                                                <div class="checker"><span><input type="checkbox" value=""></span></div> Yes </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> Enim eiusmod high life accusamus terry richardson ad squid wolf moon </td>
-                                                        <td>
-                                                            <label class="uniform-inline">
-                                                                <div class="checker"><span><input type="checkbox" value=""></span></div> Yes </label>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td> Enim eiusmod high life accusamus terry richardson ad squid wolf moon </td>
-                                                        <td>
-                                                            <label class="uniform-inline">
-                                                                <div class="checker"><span><input type="checkbox" value=""></span></div> Yes </label>
-                                                        </td>
-                                                    </tr>
-                                                    </tbody></table>
-                                                <!--end profile-settings-->
-                                                <div class="margin-top-10">
-                                                    <a href="javascript:;" class="btn red"> Save Changes </a>
-                                                    <a href="javascript:;" class="btn default"> Cancel </a>
-                                                </div>
-                                            </form>
-                                        </div>
+
                                         <!-- END PRIVACY SETTINGS TAB -->
                                     </div>
                                 </div>
@@ -242,8 +202,8 @@
     <script src="{{ asset("assets/global/plugins/jquery.sparkline.min.js")}}" type="text/javascript"></script>
     <script src="{{ asset("assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")}}" type="text/javascript"></script>
     <script>
-        $( document ).ready(function() {
+        /*$( document ).ready(function() {
 
-        });
+        });*/
     </script>
     @stop

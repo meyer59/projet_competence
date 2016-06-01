@@ -1465,16 +1465,14 @@ Makes editable any HTML element on the page. Applied as jQuery method.
             this.options.highlight = false;
         }
     };
-
     Editable.prototype = {
         constructor: Editable, 
         init: function () {
             var isValueByText = false, 
                 doAutotext, finalize;
-
             //name
             this.options.name = this.options.name || this.$element.attr('id');
-             
+
             //create input of specified type. Input needed already here to convert value for initial display (e.g. show text by id for select)
             //also we set scope option to have access to element inside input specific callbacks (e. g. source as function)
             this.options.scope = this.$element[0]; 
@@ -5988,7 +5986,7 @@ $(function(){
             });
             
             //language
-            this.options.datepicker.language = this.options.datepicker.language || 'en'; 
+            this.options.datepicker.language = this.options.datepicker.language || 'fr';
 
             //store DPglobal
             this.dpg = $.fn.bdatepicker.DPGlobal; 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return $this->redirect();
+    }
+
+    public function redirect()
+    {
+        if(Auth::user()->role == "prof")
+        {
+            //var_dump(Auth::user()->role);
+            return redirect()->route('prof_index' );
+        }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('login');
     }
 }

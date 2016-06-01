@@ -163,7 +163,7 @@
         jQuery(document).ready(function() {
             $('a[data-classe-id]').on("click",function(e){
                 e.preventDefault();
-                console.log($(this).attr("data-classe-id"));
+                //console.log($(this).attr("data-classe-id"));
                 $.fancybox({
                     type: 'iframe',
                     height: "auto",

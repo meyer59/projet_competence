@@ -158,12 +158,12 @@ var FormWizard = function () {
                 success: function (label) {
                     if (label.attr("for") == "gender" || label.attr("for") == "payment[]") { // for checkboxes and radio buttons, no need to show OK icon
                         label
-                            .closest('.form-group').removeClass('has-error').addClass('has-success');
+                            .closest('.form-group').removeClass('has-error');//.addClass('has-success');
                         label.remove(); // remove error label here
                     } else { // display success icon for other inputs
                         label
                             .addClass('valid') // mark the current input as valid and display OK icon
-                        .closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+                        .closest('.form-group').removeClass('has-error');//.addClass('has-success'); // set success class to the control group
                     }
                 },
 

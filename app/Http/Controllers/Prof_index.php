@@ -207,6 +207,7 @@ class Prof_index extends Controller
             "note"=>"5",
             "date"=>"12/02/2016",
             ],[
+              "id_eleve"=>mt_rand(0,9),
             "nom"=>"Layani",
             "prenom"=>"Meyer",
             "matiere"=>"Math",
@@ -378,167 +379,318 @@ class Prof_index extends Controller
             "nom_classe"=>"BTS IRIS", // mettre le vrai nom selon lid de la classe
             "eleves"=>[
                 [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ], [
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
                     "ville"=>"LYON",
-                    "code_postale"=>"69006",
+                    "cp"=>"69006",
                     "dob"=>"12/02/1993",
-                ],
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
+                    "nom"=>"Layani",
+                    "prenom"=>"Meyer",
+                    "adresse"=>"50 Boulvard des Belges",
+                    "ville"=>"LYON",
+                    "cp"=>"69006",
+                    "dob"=>"12/02/1993",
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
+                    "nom"=>"Layani",
+                    "prenom"=>"Meyer",
+                    "adresse"=>"50 Boulvard des Belges",
+                    "ville"=>"LYON",
+                    "cp"=>"69006",
+                    "dob"=>"12/02/1993",
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
+                    "nom"=>"Layani",
+                    "prenom"=>"Meyer",
+                    "adresse"=>"50 Boulvard des Belges",
+                    "ville"=>"LYON",
+                    "cp"=>"69006",
+                    "dob"=>"12/02/1993",
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
+                    "nom"=>"Layani",
+                    "prenom"=>"Meyer",
+                    "adresse"=>"50 Boulvard des Belges",
+                    "ville"=>"LYON",
+                    "cp"=>"69006",
+                    "dob"=>"12/02/1993",
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
+                    "nom"=>"Layani",
+                    "prenom"=>"Meyer",
+                    "adresse"=>"50 Boulvard des Belges",
+                    "ville"=>"LYON",
+                    "cp"=>"69006",
+                    "dob"=>"12/02/1993",
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
+                    "nom"=>"Layani",
+                    "prenom"=>"Meyer",
+                    "adresse"=>"50 Boulvard des Belges",
+                    "ville"=>"LYON",
+                    "cp"=>"69006",
+                    "dob"=>"12/02/1993",
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
+                    "nom"=>"Layani",
+                    "prenom"=>"Meyer",
+                    "adresse"=>"50 Boulvard des Belges",
+                    "ville"=>"LYON",
+                    "cp"=>"69006",
+                    "dob"=>"12/02/1993",
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
+                    "nom"=>"Layani",
+                    "prenom"=>"Meyer",
+                    "adresse"=>"50 Boulvard des Belges",
+                    "ville"=>"LYON",
+                    "cp"=>"69006",
+                    "dob"=>"12/02/1993",
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
+                    "nom"=>"Layani",
+                    "prenom"=>"Meyer",
+                    "adresse"=>"50 Boulvard des Belges",
+                    "ville"=>"LYON",
+                    "cp"=>"69006",
+                    "dob"=>"12/02/1993",
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
+                    "nom"=>"Layani",
+                    "prenom"=>"Meyer",
+                    "adresse"=>"50 Boulvard des Belges",
+                    "ville"=>"LYON",
+                    "cp"=>"69006",
+                    "dob"=>"12/02/1993",
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
+                    "nom"=>"Layani",
+                    "prenom"=>"Meyer",
+                    "adresse"=>"50 Boulvard des Belges",
+                    "ville"=>"LYON",
+                    "cp"=>"69006",
+                    "dob"=>"12/02/1993",
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
+                    "nom"=>"Layani",
+                    "prenom"=>"Meyer",
+                    "adresse"=>"50 Boulvard des Belges",
+                    "ville"=>"LYON",
+                    "cp"=>"69006",
+                    "dob"=>"12/02/1993",
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
+                    "nom"=>"Layani",
+                    "prenom"=>"Meyer",
+                    "adresse"=>"50 Boulvard des Belges",
+                    "ville"=>"LYON",
+                    "cp"=>"69006",
+                    "dob"=>"12/02/1993",
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
+                    "nom"=>"Layani",
+                    "prenom"=>"Meyer",
+                    "adresse"=>"50 Boulvard des Belges",
+                    "ville"=>"LYON",
+                    "cp"=>"69006",
+                    "dob"=>"12/02/1993",
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
+                    "nom"=>"Layani",
+                    "prenom"=>"Meyer",
+                    "adresse"=>"50 Boulvard des Belges",
+                    "ville"=>"LYON",
+                    "cp"=>"69006",
+                    "dob"=>"12/02/1993",
+                ],  [
+                    "id_eleve"=>mt_rand(0,9),
+                    "nom"=>"Layani",
+                    "prenom"=>"Meyer",
+                    "adresse"=>"50 Boulvard des Belges",
+                    "ville"=>"LYON",
+                    "cp"=>"69006",
+                    "dob"=>"12/02/1993",
+                ]
             ]];
         return view("layouts.prof.detail_classe",$donnee_vue);
     }
@@ -564,13 +716,77 @@ class Prof_index extends Controller
         $validator =  $this->validate($request, [
             'nom' => 'required|max:50|',
             'prenom' => 'required|max:50',
-        ]);/*
+            'cp' => 'required|max:50|alpha_num',
+            'ville' => 'required|max:50',
+            'adresse' => 'required|max:200',
+            'telephone' => 'required||max:10|phone:FR,US',
+        ]);
         if($validator) {
-            return redirect(url()->previous())
+            return redirect(url()->previous()."#tab_1_1")
                 ->withErrors($validator)
-                ->withInput();
-        }*/
-       // return  back()->with("statut","ok","msg","Les données ont bien été mis à jour"); //si c ok
-        return  back()->with("statut","bad","msg","Les données ont bien été mis à jour"); // si c bad
+                ->withInput()->with("statut","bad");
+        }
+        //si tout est ok. bdd et tout
+        return  redirect(url()->previous()."#tab_1_1")->with("statut","ok","msg","Les données ont bien été mis à jour"); //si c ok
+        //sinon
+        //return  back()->with("statut","bad","msg","Erreur dans la bdd"); // si c bad
+    }
+    public function editProfilPhoto(request $request)//modification des donne du prof. aide sur les input laravel https://laravel.com/docs/5.2/requests#old-input
+    {
+
+        $validator =  $this->validate($request, [
+            'image' => 'file',
+        ]);
+        if($validator) {
+            return redirect(url()->previous()."#tab_1_1")
+                ->withErrors($validator)
+                ->withInput()->with("statut","bad");
+        }
+        //si tout est ok. bdd et tout
+        return redirect(url()->previous()."#tab_1_2")->with("statut","ok","msg","Les données ont bien été mis à jour"); //si c ok
+        //sinon
+        //return  redirect(url()->previous()."#tab_1_2")->with("statut","bad","msg","Erreur dans la bdd"); // si c bad
+    }
+    public function editProfilpassword(request $request)//modification des donne du prof. aide sur les input laravel https://laravel.com/docs/5.2/requests#old-input
+    {
+        $validator =  $this->validate($request, [
+            'actual-password' => 'required|min:6',
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6',
+        ]);
+        if($validator) {
+            return redirect(url()->previous()."#tab_1_3")
+                ->withErrors($validator)
+                ->withInput()->with("statut","bad");
+        }
+        //si tout est ok. bdd et tout
+        return redirect(url()->previous()."#tab_1_3")->with("statut","ok","msg","Les données ont bien été mis à jour"); //si c ok
+        //sinon
+        //return  redirect(url()->previous()."#tab_1_2")->with("statut","bad","msg","Erreur dans la bdd"); // si c bad
+    }
+    public function updateEleve(request $request)//modification dans le tableau eleve de la fancy box sqd on click sur la classe
+    {
+        $validator =  $this->validate($request, [
+            'name' => 'required', // le nom du champ dans la bdd (voir les champ en dessous nom,prenom etc)
+            'pk' => 'required', //le id de l'eleve dans la table
+            'value' => 'required', // la valeur a modifier dans la table
+            'nom' => 'sometimes|required|',
+            'prenom' => 'sometimes|required|',
+            'adresse' => 'sometimes|required|',
+            'telephone' => 'sometimes|required|phone:FR,US',
+            'ville' => 'sometimes|required',
+            'cp' => 'sometimes|required|between:2,10|alpha_num',
+            'dob' => 'sometimes|required|date_format:d/m/Y',
+        ]);
+
+        if($validator) {
+            return redirect(url()->previous()."#tab_1_3")
+                ->withErrors($validator)
+                ->withInput()->with("statut","bad");
+        }
+        //si tout est ok. bdd et tout
+        return redirect(url()->previous()."#tab_1_3")->with("statut","ok","msg","Les données ont bien été mis à jour"); //si c ok
+        //sinon
+        //return  redirect(url()->previous()."#tab_1_2")->with("statut","bad","msg","Erreur dans la bdd"); // si c bad
     }
 }

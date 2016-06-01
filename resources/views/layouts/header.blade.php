@@ -363,12 +363,12 @@
                         <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                         <li class="dropdown dropdown-user dropdown-dark">
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <span class="username username-hide-on-mobile"> F.Dupont </span>
+                                <span class="username username-hide-on-mobile">{{ucfirst(substr(Auth::user()->prenom, 0, 1)) .".".ucfirst(Auth::user()->name)}}</span>
                                 <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                                <img alt="" class="img-circle" src="{{ asset("assets/pages/media/profile/prof_".Session::get('id_prof').".jpg")}}" /> </a>
+                                <img alt="" class="img-circle" src="{{ asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")}}" /> </a>
                             <ul class="dropdown-menu dropdown-menu-default">
                                 <li>
-                                    <a href="{{url("prof/".Session::get("id_prof")."/profile")}}">
+                                    <a href="{{url("prof/profile")}}">
                                         <i class="icon-user"></i> Mon profile </a>
                                 </li>
                                 {{--<li>--}}
@@ -393,17 +393,14 @@
                                         {{--<i class="icon-lock"></i> Lock Screen </a>--}}
                                 {{--</li>--}}
                                 <li>
-                                    <a href="page_user_login_1.html">
+                                    <a href="{{url('/deconnexion')}}">
                                         <i class="icon-key"></i> Déconnexion </a>
                                 </li>
                             </ul>
                         </li>
                         <!-- END USER LOGIN DROPDOWN -->
                         <!-- BEGIN QUICK SIDEBAR TOGGLER -->
-                        <li class="dropdown dropdown-extended quick-sidebar-toggler">
-                            <span class="sr-only">Toggle Quick Sidebar</span>
-                            <i class="icon-logout"></i>
-                        </li>
+
                         <!-- END QUICK SIDEBAR TOGGLER -->
                     </ul>
                 </div>
@@ -416,3 +413,12 @@
     <!-- BEGIN HEADER & CONTENT DIVIDER -->
     <div class="clearfix"> </div>
     <!-- END HEADER & CONTENT DIVIDER -->
+@section('js')
+    @parent
+    <script>
+$( document ).ready(function() {
+    $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+
+});
+    </script>
+    @stop

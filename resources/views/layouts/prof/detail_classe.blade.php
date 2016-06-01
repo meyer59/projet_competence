@@ -1,4 +1,4 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8" />
     <title>@yield("title")</title>
@@ -24,6 +24,7 @@
         <link href="{{ asset("assets/global/plugins/jquery-multi-select/css/multi-select.css")}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset("assets/global/plugins/datatables/datatables.min.css")}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css")}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset("assets/global/plugins/bootstrap-editable/bootstrap-editable/css/bootstrap-editable.css")}}" rel="stylesheet" type="text/css" />
         <!-- END PAGE LEVEL PLUGINS -->
         <!-- BEGIN THEME GLOBAL STYLES -->
         <link href="{{ asset("assets/global/css/components-rounded.min.css")}}" rel="stylesheet" id="style_components" type="text/css" />
@@ -62,12 +63,24 @@
             <tbody>
             @foreach($eleves as $eleve)
             <tr>
-                <td> {{$eleve["nom"]}} </td>
-                <td> {{$eleve["prenom"]}}  </td>
-                <td> {{$eleve["adresse"]}}  </td>
-                <td> {{$eleve["ville"]}}  </td>
-                <td> {{$eleve["code_postale"]}}  </td>
-                <td> {{$eleve["dob"]}}  </td>
+                <td>
+                    <a href="javascript:;"  data-namekey="nom" data-name="nom" data-title="Entrer un nom" data-type="text" data-pk="{{$eleve["id_eleve"]}}" data-original-title="Entrer un nom" class="tdeditable editable editable-click" style="display: inline;">  {{$eleve["nom"]}} </a>
+                </td>
+                <td>
+                    <a href="javascript:;"  data-namekey="prenom" data-name="prenom" data-title="Entrer un prenom" data-type="text" data-pk="{{$eleve["id_eleve"]}}" data-original-title="Entrer un prenom" class="tdeditable editable editable-click" style="display: inline;">  {{$eleve["prenom"]}} </a>
+                </td>
+                <td>
+                    <a href="javascript:;"  data-namekey="adresse" data-name="adresse" data-title="Entrer une adresse" data-type="text" data-pk="{{$eleve["id_eleve"]}}" data-original-title="Entrer une adresse" class="tdeditable editable editable-click" style="display: inline;">  {{$eleve["adresse"]}} </a>
+                </td>
+                <td>
+                    <a href="javascript:;"  data-namekey="ville" data-name="ville" data-title="Entrer une ville" data-type="text" data-pk="{{$eleve["id_eleve"]}}" data-original-title="Entrer une ville" class="tdeditable editable editable-click" style="display: inline;">  {{$eleve["ville"]}} </a>
+                </td>
+                <td>
+                    <a href="javascript:;"  data-namekey="cp" data-name="cp" data-title="Entrer un code postale" data-type="text" data-pk="{{$eleve["id_eleve"]}}" data-original-title="Entrer un code postale" class="tdeditable editable editable-click" style="display: inline;">  {{$eleve["cp"]}} </a>
+                </td>
+                <td>
+                    <a href="javascript:;"  data-namekey="dob" data-name="dob" data-title="Entrer une date de naissance" data-type="date" data-pk="{{$eleve["id_eleve"]}}" data-format="dd/mm/yyyy" data-original-title="Entrer une date de naissance" class="tdeditable editable editable-click" style="display: inline;">  {{$eleve["dob"]}} </a>
+                </td>
             </tr>
             @endforeach
             </tbody>
@@ -93,7 +106,6 @@
 <script src="{{ asset("assets/global/plugins/jquery-validation/js/additional-methods.min.js")}}" type="text/javascript"></script>
 <script src="{{ asset("assets/global/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js")}}" type="text/javascript"></script>
 <script src="{{ asset("assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js")}}" type="text/javascript"></script>
-<script src="{{ asset("assets/global/plugins/datatables/datatables.min.js")}}" type="text/javascript"></script>
 <script src="{{ asset("assets/pages/scripts/messages_fr.js")}}" type="text/javascript"></script>
 <script src="{{ asset("assets/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js")}}" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
@@ -105,10 +117,71 @@
 <script src="{{ asset("assets/global/plugins/datatables/datatables.min.js")}}" type="text/javascript"></script>
 <script src="{{ asset("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js")}}" type="text/javascript"></script>
 <script src="{{ asset("assets/pages/scripts/table-datatables-buttons.js")}}" type="text/javascript"></script>
+<script src="{{ asset("assets/global/plugins/bootstrap-editable/bootstrap-editable/js/bootstrap-editable.js")}}" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="{{ asset("assets/layouts/layout4/scripts/layout.min.js")}}" type="text/javascript"></script>
 <script src="{{ asset("assets/layouts/layout4/scripts/demo.min.js")}}" type="text/javascript"></script>
 <script src="{{ asset("assets/layouts/global/scripts/quick-sidebar.min.js")}}" type="text/javascript"></script>
+<script>
+    $( document ).ready(function() {
+        $.fn.editable.defaults.mode = 'inline';
+        $.fn.datepicker.dates['fr'] = {
+            days: ["dimanche", "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi"],
+            daysShort: ["dim.", "lun.", "mar.", "mer.", "jeu.", "ven.", "sam."],
+            daysMin: ["d", "l", "ma", "me", "j", "v", "s"],
+            months: ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+            monthsShort: ["janv.", "févr.", "mars", "avril", "mai", "juin", "juil.", "août", "sept.", "oct.", "nov.", "déc."],
+            today: "Aujourd'hui",
+            monthsTitle: "Mois",
+            clear: "Effacer",
+            weekStart: 1,
+            format: "dd/mm/yyyy"
+        };
+        $.fn.editable.language='fr';
+        /*$('.tdeditable').editable({
+            url: "{{url('/prof/updateEleve')}}",
+            name:"popo",
+            error: function(response, newValue) {
+                if (response.status === 500) {
+                    return 'Erreur serveur';
+                } else {
+                    //console.log( response.responseJSON);
+                    for (key in response.responseJSON){
+                        return( response.responseJSON[key][0]);
+                    }
+                    // response.responseJSON[0][0];// != 'undefined' ? response.responseJSON.name[0] : response.responseJSON[$(this).attr("data-namekey")][0];//balancer la reponse du controller
+                }
+            },
+            params: function(params) {
+                //originally params contain pk, name and value
+                params[$(this).attr("data-namekey")] = params.value; //la valeur du champ en key, nom=> value,prenom=>value etc
+                return params;
+            }
+        });*/
+       $('#detail_eleve').on('click', '.tdeditable', function () {
+          $(this).editable({
+                url: "{{url('/prof/updateEleve')}}",
+                name:"popo",
+                error: function(response, newValue) {
+                    if (response.status === 500) {
+                        return 'Erreur serveur';
+                    } else {
+                        //console.log( response.responseJSON);
+                        for (key in response.responseJSON){
+                            return( response.responseJSON[key][0]);
+                        }
+                        // response.responseJSON[0][0];// != 'undefined' ? response.responseJSON.name[0] : response.responseJSON[$(this).attr("data-namekey")][0];//balancer la reponse du controller
+                    }
+                },
+                params: function(params) {
+                    //originally params contain pk, name and value
+                    params[$(this).attr("data-namekey")] = params.value; //la valeur du champ en key, nom=> value,prenom=>value etc
+                    return params;
+                }
+            }); $(this).editable('toggle');
+        });
+    });
+</script>
 </body>
 </html>

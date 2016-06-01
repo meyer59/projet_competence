@@ -4,7 +4,12 @@ jQuery(document).ready(function() {
             refreshButtonTitle: "Actualiser",
             months: ["Janvier", "Février", 'Mars', 'Avril', 'Mai', 'Juin',  'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
             shortMonths: [ "Janv","Févr","Mars","Avr","Mai","Juin","Juil","Août","Sept","Oct","Nov","Déc"],
-            weekdays: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
+            weekdays: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            downloadSVG:"Télécharger en SVG",
+            downloadJPEG:"Télécharger en JPEG",
+            downloadPNG:"Télécharger en PNG",
+            downloadPDF:"Télécharger en PDF",
+            printChart:"Imprimer le graphique"
         }
     });
 });
@@ -21,7 +26,7 @@ function init_graphe() {
                 zoomType: 'x',
                 pinchType: 'x',
                 chart: {
-                    style: {
+                   style: {
                         fontFamily: 'Open Sans'
                     }
                 },
@@ -119,7 +124,28 @@ function init_graphe() {
                             }
                         },
                         threshold: 1
-                    }
+                    }/*, series: {
+                        cursor: 'pointer',
+                        point: {
+                            events: {
+                                click: function(e) {
+                                    var note = (this.index)+1;
+                                    //console.log("?note="+note+"classeId="+classeId+""+"competenceId="+competenceId)
+                                    $.fancybox({
+                                        type: 'iframe',
+                                        height: "auto",
+                                        autoResize:true,
+                                        centerOnScroll:true,
+                                        'iframe'           : {
+                                            scrolling : 'auto',
+                                            preload   : 'true'
+                                        },
+                                        'href': url_chart_detail_eleve_prof_fancybox+"?note="+note+"classeId="+classeId+""+"matiereId="+matiereId+"competenceId="+competenceId
+                                    });
+                                }
+                            }
+                        }
+                    }*/
                 },
                 series: donnees //bien trier les valeurs dans l'ordre (error 15 HChart)
 

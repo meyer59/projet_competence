@@ -39,8 +39,8 @@
                         <!-- END SIDEBAR USERPIC -->
                         <!-- SIDEBAR USER TITLE -->
                         <div class="profile-usertitle">
-                            <div class="profile-usertitle-name"> {{$prenom}} {{$nom}} </div>
-                            <div class="profile-usertitle-job"> {{$role}} </div>
+                            <div class="profile-usertitle-name"> {{ucfirst(Auth::user()->prenom)}} {{Auth::user()->name}} </div>
+                            <div class="profile-usertitle-job"> {{Auth::user()->role=="prof" ? "professeur" : "eleve"}} </div>
                         </div>
                         <!-- END SIDEBAR USER TITLE -->
                         <!-- SIDEBAR BUTTONS -->
@@ -97,35 +97,35 @@
                                                 {{ csrf_field() }}
                                                 <div class="form-group @if($errors->first('nom')) has-error @endif">
                                                     <label class="control-label">Nom</label>
-                                                    <input type="text" name="nom" placeholder="" value="{{old("nom",$nom)}}" class="form-control">
+                                                    <input type="text" name="nom" placeholder="" value="{{old("nom",$nom)}}" class="form-control" {{Auth::user()->role == "eleve" ? "disabled" : ""}}>
                                                 @if($errors->first('nom'))<span class="help-block">{{ $errors->first('nom') }}</span>  @endif
                                                 </div>
                                                 <div class="form-group @if($errors->first('prenom')) has-error @endif">
                                                     <label class="control-label">Prenom</label>
-                                                    <input type="text" name="prenom" placeholder="" value="{{old("prenom",$prenom)}}" class="form-control">
+                                                    <input type="text" name="prenom" placeholder="" value="{{old("prenom",$prenom)}}" class="form-control" {{Auth::user()->role == "eleve" ? "disabled" : ""}}>
                                                     @if($errors->first('prenom'))<span class="help-block">{{ $errors->first('prenom') }}</span>  @endif
                                                 </div>
                                                 <div class="form-group @if($errors->first('adresse')) has-error @endif">
                                                     <label class="control-label">Adresse</label>
-                                                    <input type="text" name="adresse" placeholder="" value="{{ old("adresse",$adresse)}}" class="form-control">
+                                                    <input type="text" name="adresse" placeholder="" value="{{ old("adresse",$adresse)}}" class="form-control" {{Auth::user()->role == "eleve" ? "disabled" : ""}}>
                                                     @if($errors->first('adresse'))<span class="help-block">{{ $errors->first('adresse') }}</span>  @endif
                                                 </div>
                                                 <div class="form-group @if($errors->first('cp')) has-error @endif">
                                                     <label class="control-label">Code postale</label>
-                                                    <input type="text" name="cp" placeholder="" value="{{old("cp",$cp)}}" class="form-control">
+                                                    <input type="text" name="cp" placeholder="" value="{{old("cp",$cp)}}" class="form-control" {{Auth::user()->role == "eleve" ? "disabled" : ""}}>
                                                     @if($errors->first('cp'))<span class="help-block">{{ $errors->first('cp') }}</span>  @endif
                                                 </div>
                                                 <div class="form-group @if($errors->first('ville')) has-error @endif">
                                                     <label class="control-label">Ville</label>
-                                                    <input type="text" name="ville" placeholder="" value="{{old("ville",$ville)}}" class="form-control">
+                                                    <input type="text" name="ville" placeholder="" value="{{old("ville",$ville)}}" class="form-control" {{Auth::user()->role == "eleve" ? "disabled" : ""}}>
                                                     @if($errors->first('ville'))<span class="help-block">{{ $errors->first('ville') }}</span>  @endif
                                                 </div>
                                                 <div class="form-group @if($errors->first('telephone')) has-error @endif">
                                                     <label class="control-label">Téléphone</label>
-                                                    <input type="text" name="telephone" placeholder="" value="{{old("telephone",$telephone)}}" class="form-control">
+                                                    <input type="text" name="telephone" placeholder="" value="{{old("telephone",$telephone)}}" class="form-control" {{Auth::user()->role == "eleve" ? "disabled" : ""}}>
                                                     @if($errors->first('telephone'))<span class="help-block">{{ $errors->first('telephone') }}</span>  @endif
                                                 </div>
-                                                <div class="margiv-top-10">
+                                                <div class="margiv-top-10" {{Auth::user()->role == "eleve" ? 'style="display:none;"' : ""}}>
                                                     <button class="btn green"> Valider </button>
                                                 </div>
                                             </form>

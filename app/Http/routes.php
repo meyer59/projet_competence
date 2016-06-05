@@ -55,6 +55,7 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('/prof/geteleve', "Prof_index@eleveenjson");
                 Route::get('/prof/eleveEtmatiereEnjson', "Prof_index@eleveEtmatiereEnjson");
                 Route::post('/prof/postcomptence', "Prof_index@postcomptence");
+                Route::get('/prof/tab_competNonEval', "Prof_index@tab_competNonEval");
 
                 //CSRF exlus
                 Route::post('/prof/updateEleve', "Prof_index@updateEleve"); // pour le plug in xeditable de mise a jour des eleves

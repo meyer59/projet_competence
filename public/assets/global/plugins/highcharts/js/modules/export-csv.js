@@ -198,7 +198,7 @@
                 val = row[j];
                 // Add the cell
                 if(val == "DateTime")val="Date de la note";
-                if(val == "Category")val="Categories";
+                if(val == "Category")val="Catégories";
                 if (typeof val === 'number') {
                     val = val.toString();
                     if (n === ',') {

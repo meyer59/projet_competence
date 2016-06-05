@@ -4,7 +4,6 @@
     @parent
     <link href="{{ asset("assets/global/plugins/ion.rangeslider/css/ion.rangeSlider.css")}}" rel="stylesheet" type="text/css">
     <link href="{{ asset("assets/global/plugins/ion.rangeslider/css/ion.rangeSlider.skinHTML5.css")}}" rel="stylesheet" type="text/css">
-    <link href="{{ asset("assets/global/plugins/bootstrap-toastr/toastr.min.css")}}" rel="stylesheet" type="text/css">
     @stop
 @section("content_body")
     @parent
@@ -88,7 +87,7 @@
                                             </div>
                                             <h3 class="block choixeleve">Veuillez selectionner au minimum un élève</h3>
                                             <div class="form-group choixeleve">
-                                                <label class="control-label col-md-3">Categorie
+                                                <label class="control-label col-md-3">Elève(s)
                                                     <span class="required"> * </span>
                                                 </label>
                                                 <div class="col-md-4">
@@ -105,7 +104,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <h3 class="block">Type d'éxamen</h3>
+                                            <h3 class="block">Type d'évaluation</h3>
                                             <div class="form-group">
                                                 <label class="control-label col-md-3">Categorie
                                                     <span class="required"> * </span>
@@ -124,7 +123,7 @@
                                                             <label for="checkbox112_7">
                                                                 <span></span>
                                                                 <span class="check"></span>
-                                                                <span class="box"></span> Examen </label>
+                                                                <span class="box"></span> Evaluation type examen </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -158,7 +157,9 @@
                                                 </div>
                                             </div>
                                             <!-- creation du formulaire de competence -->
-                                            <div id="competForm"></div>
+                                            {{--//debut des accordeon--}}
+                                            <div class="panel-group accordion competForm" id="accordion3">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -190,8 +191,8 @@
 @section("js")
     @parent
     <script src="{{ asset("assets/global/plugins/ion.rangeslider/js/ion.rangeSlider.min.js")}}" type="text/javascript"></script>
-    <script src="{{ asset("assets/global/plugins/bootstrap-toastr/toastr.min.js")}}" type="text/javascript"></script>
     <script>
+        url_prof_eleve = "{{url("prof/geteleve")}}";
         $( document ).ready(function() {
             $(".sliderNote").on("change", function () {
                 alert();
@@ -208,19 +209,20 @@
             });
             //recuperation des eleve de la classe choisie
            $("#select_classe").on("change",function(e){
+               $("#select_all").removeAttr("checked");
                var that = $(this);
                $classe = that.val();
-               //console.log($classe);
                $.ajax({
                    method: "GET",
                    type:"JSON",
                    url: "{{url("prof/geteleve")}}",
+                   error: function (request, error) {
+                       toastr.error('Une erreur est surevenue. Si cela persite, rafraichissez la page', 'Oops...', {"newestOnTop": true,"progressBar": true,"preventDuplicates": false,"showDuration": "300","hideDuration": "1000","timeOut": "15000","extendedTimeOut": "10000"});
+                   },
                    data: { classe: $classe },
                    success:function(donnees){
                        //console.log(donnees);
-                       $("#select_eleve").empty();//vide la liste des eleves
-                       $("#select_competence").empty(); // si on change de classe on vide les competence de la classe avec
-                       $.each(donnees, function (i, item) {
+                      $.each(donnees, function (i, item) {
                            $("#select_eleve").append('<option value="'+i+'">'+item+'</option>');
                        });
                    }
@@ -238,6 +240,7 @@
                     $(".choixeleve").hide();
                 }else{ //eval simple
                     $(".choixeleve").show();
+                    $("#select_eleve > option").removeAttr("selected");
                 }
             });
                //recuperation des competence selon la classe choisie
@@ -246,6 +249,9 @@
                        method: "GET",
                        type: "JSON",
                        url: "{{url("/prof/getcompetence")}}",
+                       error: function (request, error) {
+                           toastr.error('Une erreur est surevenue. Si cela persite, rafraichissez la page', 'Oops...', {"newestOnTop": true,"progressBar": true,"preventDuplicates": false,"showDuration": "300","hideDuration": "1000","timeOut": "15000","extendedTimeOut": "10000"});
+                       },
                        data: {classe: $("#select_classe").val()},
                        success: function (donnees) {
                            //console.log(donnees);
@@ -261,7 +267,7 @@
                                    $('optgroup[label="' + i + '"]').append("<option value=\"" + id + "\">" + competence + "</option>");
                                });
                            });
-                           $("#tab3 #competForm").empty();
+                           $("#tab3 .competForm").empty();
                            $("#select_competence").multiSelect('refresh');
                        }
                    });
@@ -282,6 +288,9 @@
                     method: "POST",
                     type: "JSON",
                     url: "{{url("/prof/postcomptence")}}",
+                    error: function (request, error) {
+                        toastr.error('Une erreur est surevenue. Si cela persite, rafraichissez la page', 'Oops...', {"newestOnTop": true,"progressBar": true,"preventDuplicates": false,"showDuration": "300","hideDuration": "1000","timeOut": "15000","extendedTimeOut": "10000"});
+                    },
                     data: $("#submit_form").serialize(),
                     success: function (donnees) {
                         toastr.options.onHidden = function() { location.reload(true); }

@@ -2,9 +2,10 @@
 @section('title', "Évalutaion d'élève(s)")
 @section("css")
     @parent
-    <link href="{{ asset("assets/global/plugins/bootstrap-editable/bootstrap-editable/css/bootstrap-editable.css")}}" rel="stylesheet" type="text/css">
+{{--    <link href="{{ asset("assets/global/plugins/bootstrap-editable/bootstrap-editable/css/bootstrap-editable.css")}}" rel="stylesheet" type="text/css">--}}
     <link href="{{ asset("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css")}}" rel="stylesheet" type="text/css">
     <link href="{{ asset("assets/global/plugins/fancybox/source/jquery.fancybox.css")}}" rel="stylesheet" type="text/css">
+    {{--<link href="{{ asset("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css")}}" rel="stylesheet" type="text/css" />--}}
     @stop
 @section("content_body")
     @parent
@@ -27,6 +28,7 @@
         <!-- BEGIN PAGE BASE CONTENT -->
         <div class="m-heading-1 border-green m-bordered">
           <form action="" class="form-horizontal" id="form_rapport">
+              <input type="hidden" value="{{Auth::user()->id}}" name="id_prof">
            <div class="form-body">
                 <h4 class="form-section">Choisir vos critères</h4>
                 <div class="row">
@@ -67,7 +69,7 @@
                <div class="row">
                    <div class="col-md-4 col-lg-4">
                        <div class="form-group">
-                           <label class="control-label col-md-3">Competence<span class="required" aria-required="true"> * </span></label>
+                           <label class="control-label col-md-3">Competence <span class="required" aria-required="true"> * </span></label>
                            <div class="col-md-9">
                                {{--<div class="input-group">--}}
                                    {{--<span class="input-group-addon"><input type="checkbox"></span>--}}
@@ -87,8 +89,25 @@
                                             <i class="fa fa-calendar"></i>
                                         </button>
                                     </span>
-                                   <input type="text" name="intervalle" class="form-control" required>
+                                   <input type="text" name="intervalle-original" class="form-control" required>
+                                   <input type="hidden" name="intervalle" value="" class="form-control" required>
                                </div>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="col-md-4 col-lg-4">
+                       <div class="form-group">
+                           <label class="control-label col-md-3">Type de note<span class="required" aria-required="true"> * </span></label>
+                           <div class="col-md-9">
+                               {{--<div class="input-group">--}}
+                               {{--<span class="input-group-addon"><input type="checkbox"></span>--}}
+                               <select  placeholder="Selectionner le type de note" name="type_eval" class="form-control" required>
+                                   <option value="eval" selected>Professeur (type examen)</option>
+                                   <option value="simple">Professeur (type simple)</option>
+                                   <option value="eleve">Elève</option>
+                                   <option value="all">Tout les types</option>
+                               </select>
+                               {{--</div>--}}
                            </div>
                        </div>
                    </div>
@@ -106,45 +125,105 @@
         <!-- END PAGE BASE CONTENT -->
         {{--debut graphe--}}
         {{--comparaison prof eleve--}}
-        <div class="row chart_rapport" style="display: none;">
-            <div class="col-md-12">
-                <div class="portlet mt-element-ribbon light portlet-fit bordered">
-                    <div class="ribbon ribbon-right ribbon-clip ribbon-shadow ribbon-border-dash-hor ribbon-color-success uppercase">
-                        <div class="ribbon-sub ribbon-clip ribbon-right"></div><span class="ribbon_titre"></span></div>
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <i class=" icon-layers font-green"></i>
-                            <span class="caption-subject font-green bold uppercase">Comparaison des notes professeur - élève</span>
-                        </div>
-                        <div class="actions">
-                            <span class="competence_action"></span>
+        <div class="tabbable-custom " style="display: none;">
+            <ul class="nav nav-tabs ">
+                <li class="active">
+                    <a href="#tab_5_1" data-toggle="tab" aria-expanded="false"> Competences évaluées </a>
+                </li>
+                <li class="">
+                    <a href="#tab_5_2" data-toggle="tab" aria-expanded="true"> Competences non évaluées </a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab_5_1">{{--debut tab pane evaluee--}}
+
+                    <div class="row chart_rapport" style="display: none;">
+                        <div class="col-md-12">
+                            <div class="portlet mt-element-ribbon light portlet-fit bordered">
+                                <div class="ribbon ribbon-right ribbon-clip ribbon-shadow ribbon-border-dash-hor ribbon-color-success uppercase">
+                                    <div class="ribbon-sub ribbon-clip ribbon-right"></div><span class="ribbon_titre"></span></div>
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class=" icon-layers font-green"></i>
+                                        <span class="caption-subject font-green bold uppercase">Comparaison des notes professeur - élève</span>
+                                    </div>
+                                    <div class="actions">
+                                        <span class="competence_action"></span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div id="comparaison_prof_eleve" style="height:500px;"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="portlet-body">
-                        <div id="comparaison_prof_eleve" style="height:500px;"></div>
+                    {{--comparaison e tout les eleve--}}
+                    <div class="row chart_rapport" style="display: none;">
+                        <div class="col-md-12">
+                            <div class="portlet mt-element-ribbon light portlet-fit bordered">
+                                <div class="ribbon ribbon-right ribbon-clip ribbon-shadow ribbon-border-dash-hor ribbon-color-success uppercase">
+                                    <div class="ribbon-sub ribbon-clip ribbon-right"></div><span class="ribbon_titre"></span></div>
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class=" icon-layers font-green"></i>
+                                        <span class="caption-subject font-green bold uppercase">Notes de la classe</span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div id="comparaison_eleve_eleve" style="height:500px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--fin graphe--}}
+                </div>{{-- fin tab pane evaluee--}}
+                <div class="tab-pane" id="tab_5_2">
+                    <div class="row chart_rapport" style="display: none;">
+                        <div class="col-md-12">
+                            <div class="portlet mt-element-ribbon light portlet-fit bordered">
+                                <div class="ribbon ribbon-right ribbon-clip ribbon-shadow ribbon-border-dash-hor ribbon-color-success uppercase">
+                                    <div class="ribbon-sub ribbon-clip ribbon-right"></div><span id="ribbon_noneval"></span>
+                                </div>
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class=" icon-layers font-green"></i>
+                                        <span class="caption-subject font-green bold ">Affichage des competences ne possédant aucune note</span>
+                                    </div>
+                                    <div class="actions">
+                                        <span class="competence_action"></span>
+                                    </div>
+                                </div>
+                                <div class="portlet-body">
+                                    {{--code du tableau--}}
+                                    <div class="portlet light bordered">
+                                        <div class="portlet-title">
+                                            <div class="caption font-dark">
+                                                <i class="icon-users font-dark"></i>
+                                                <span class="caption-subject bold " id="classe_nom"></span>
+                                            </div>
+                                            <div class="tools"> </div>
+                                        </div>
+                                        <div class="portlet-body">
+                                            <table class="table table-striped table-bordered table-hover" id="note_noneval">
+                                                <thead>
+                                                <tr>
+                                                    <th> Matières </th>
+                                                    <th> Competences </th>
+                                                    <th> Type de notes </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        {{--comparaison e tout les eleve--}}
-        <div class="row chart_rapport" style="display: none;">
-            <div class="col-md-12">
-                <div class="portlet mt-element-ribbon light portlet-fit bordered">
-                    <div class="ribbon ribbon-right ribbon-clip ribbon-shadow ribbon-border-dash-hor ribbon-color-success uppercase">
-                        <div class="ribbon-sub ribbon-clip ribbon-right"></div><span class="ribbon_titre"></span></div>
-                    <div class="portlet-title">
-                        <div class="caption">
-                            <i class=" icon-layers font-green"></i>
-                            <span class="caption-subject font-green bold uppercase">Notes de la classe</span>
-                        </div>
-                    </div>
-                    <div class="portlet-body">
-                        <div id="comparaison_eleve_eleve" style="height:500px;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{--fin graphe--}}
     </div>
  @stop
 @section("js")
@@ -159,8 +238,27 @@
     classeId = "";
     competenceId = "";
     matiereId = "";
+    function init_tab() // charge le tablea datatable
+    {
+        $.ajax({
+            method: "GET",
+            type: "JSON",
+            url: "{{url("prof/tab_competNonEval")}}",
+            data: $("#form_rapport").serialize(),
+            error: function (request, error) {
+                toastr.error('Une erreur est surevenue. Si cela persite, rafraichissez la page', 'Oops...', {"newestOnTop": true,"progressBar": true,"preventDuplicates": false,"showDuration": "300","hideDuration": "1000","timeOut": "15000","extendedTimeOut": "10000"});
+            },
+            success: function (donnees) {
+                $("#ribbon_noneval").text("Competence de type: "+ $('select[name="type_eval"] option:selected').text());
+                if(donnees.length > 0)
+                {
+                   $('#note_noneval').DataTable().rows.add(donnees).draw();
+                }
+            }
+        });
+    }
 </script>
-    <script src="{{ asset("assets/global/plugins/bootstrap-editable/bootstrap-editable/js/bootstrap-editable.js")}}" type="text/javascript"></script>
+{{--    <script src="{{ asset("assets/global/plugins/bootstrap-editable/bootstrap-editable/js/bootstrap-editable.js")}}" type="text/javascript"></script>--}}
     <script src="{{ asset("assets/global/plugins/moment-with-locales.min.js")}}" type="text/javascript"></script>
     <script src="{{ asset("assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.js")}}" type="text/javascript"></script>
     <script src="{{ asset("assets/global/plugins/highcharts/js/highcharts.js")}}" type="text/javascript"></script>
@@ -173,6 +271,8 @@
     <script src="{{ asset("assets/global/plugins/datatables/datatables.min.js")}}" type="text/javascript"></script>
     <script src="{{ asset("assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.js")}}" type="text/javascript"></script>
     <script src="{{ asset("assets/pages/scripts/table-datatables-buttons.js")}}" type="text/javascript"></script>
+    {{--<script src="{{ asset("assets/global/plugins/bootstrap-editable/bootstrap-editable/js/bootstrap-editable.js")}}" type="text/javascript"></script>--}}
+
     <script>
         $( document ).ready(function() {
             moment.locale('fr');//moment.js en francais pour la daterangepicker
@@ -207,7 +307,8 @@
                         maxDate: '12/31/2099',
                     },
                     function (start, end) {
-                        $('#defaultrange input').val(start.format('D MMMM YYYY') + ' - ' + end.format('D MMMM YYYY'));
+                        $('#defaultrange input:first').val(start.format('D MMMM YYYY') + ' - ' + end.format('D MMMM YYYY'));
+                        $('#defaultrange input:eq(1)').val(start.format('YYYY-MM-DD') + '|' + end.format('YYYY-MM-DD'));
                     }
             );
             $(".selectable2").select2({
@@ -225,9 +326,12 @@
                     method: "GET",
                     type:"JSON",
                     url: "{{url("prof/eleveEtmatiereEnjson")}}",
+                    error: function (request, error) {
+                        toastr.error('Une erreur est surevenue. Si cela persite, rafraichissez la page', 'Oops...', {"newestOnTop": true,"progressBar": true,"preventDuplicates": false,"showDuration": "300","hideDuration": "1000","timeOut": "15000","extendedTimeOut": "10000"});
+                    },
                     data: { classe: $classe },
                     success:function(donnees){
-                        $('select:not(select[name="classe"])').empty();//vide la liste des eleves
+                        $('select:not(select[name="classe"],select[name="type_eval"])').empty();//vide la liste des eleves
                         $('select[name="eleve"]').append('<option value=""></option>');//option vide pour le placeholder
                         $.each(donnees.eleve, function (i, item) { // rempli le select des eleve
                            $('select[name="eleve"]').append('<option value="'+i+'">'+item+'</option>');
@@ -249,6 +353,9 @@
                     method: "GET",
                     type:"JSON",
                     url: "{{url("prof/getcompetenceByMatiere")}}",
+                    error: function (request, error) {
+                        toastr.error('Une erreur est surevenue. Si cela persite, rafraichissez la page', 'Oops...', {"newestOnTop": true,"progressBar": true,"preventDuplicates": false,"showDuration": "300","hideDuration": "1000","timeOut": "15000","extendedTimeOut": "10000"});
+                    },
                     data: { matiere: $matiere },
                     success:function(donnees){
                         $('select[name="competence"]').empty();
@@ -274,10 +381,13 @@
                     cenrerY: true
                 });
                 $(".ribbon_titre").text($('select[name="matiere"] option:selected').text() +" - "+ $('select[name="competence"] option:selected').text()); //Maj des rubban
+                $("#classe_nom").text( $('select[name="classe"] option:selected').text());
+                $(".tabbable-custom").show();
                 competenceId = $('select[name="competence"] option:selected').val();
                 classeId = $('select[name="classe"] option:selected').val();
                 matiereId = $('select[name="matiere"] option:selected').val();
                 init_graphe();
+                init_tab();
                 App.unblockUI(targ);
             });
         });

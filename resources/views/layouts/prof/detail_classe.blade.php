@@ -34,6 +34,7 @@
         <link href="{{ asset("assets/layouts/layout4/css/layout.min.css")}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset("assets/layouts/layout4/css/themes/light.min.css")}}" rel="stylesheet" type="text/css" id="style_color" />
         <link href="{{ asset("assets/layouts/layout4/css/custom.min.css")}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset("assets/global/plugins/bootstrap-toastr/toastr.min.css")}}" rel="stylesheet" type="text/css">
         <!-- END THEME LAYOUT STYLES -->
         <link rel="shortcut icon" href="favicon.ico" />
 
@@ -44,7 +45,7 @@
     <div class="portlet-title">
         <div class="caption font-dark">
             <i class="icon-users font-dark"></i>
-            <span class="caption-subject bold ">Classe: {{$nom_classe}}</span>
+            <span class="caption-subject bold ">Classe: <span id="classeNom"> {{$nom_classe}}</span>
         </div>
         <div class="tools"> </div>
     </div>
@@ -123,6 +124,8 @@
 <script src="{{ asset("assets/layouts/layout4/scripts/layout.min.js")}}" type="text/javascript"></script>
 <script src="{{ asset("assets/layouts/layout4/scripts/demo.min.js")}}" type="text/javascript"></script>
 <script src="{{ asset("assets/layouts/global/scripts/quick-sidebar.min.js")}}" type="text/javascript"></script>
+<script src="{{ asset("assets/global/plugins/bootstrap-toastr/toastr.min.js")}}" type="text/javascript"></script>
+
 <script>
     $( document ).ready(function() {
         $.fn.editable.defaults.mode = 'inline';
@@ -140,7 +143,7 @@
         };
         $.fn.editable.language='fr';
         /*$('.tdeditable').editable({
-            url: "{{url('/prof/updateEleve')}}",
+            {{--url: "{{url('/prof/updateEleve')}}",--}}
             name:"popo",
             error: function(response, newValue) {
                 if (response.status === 500) {
@@ -161,11 +164,12 @@
         });*/
        $('#detail_eleve').on('click', '.tdeditable', function () {
           $(this).editable({
-                url: "{{url('/prof/updateEleve')}}",
-                name:"popo",
+                url: "{{url('/prof/updatppeEleve')}}",
                 error: function(response, newValue) {
                     if (response.status === 500) {
                         return 'Erreur serveur';
+                    }else if(response.status === 404){
+                        toastr.error('Une erreur est surevenue. Si cela persite, rafraichissez la page', 'Oops...', {"newestOnTop": true,"progressBar": true,"preventDuplicates": false,"showDuration": "300","hideDuration": "1000","timeOut": "5000","extendedTimeOut": "10000"});
                     } else {
                         //console.log( response.responseJSON);
                         for (key in response.responseJSON){

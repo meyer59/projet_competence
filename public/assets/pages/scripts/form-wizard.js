@@ -37,19 +37,34 @@ var FormWizard = function () {
                     delToForm(value);
                 }
             });
-            function addToForm(value) // ajouter au formulaire de competence
+            var i = 0;
+            function addToForm(value) // ajouter au formulaire de competence (final 3ieme etape)
             {
                 //recuperation du optgroup
                 var optgroup = ($.isArray(value)) ? $('#select_competence option[value="'+value[0]+'"]').closest('optgroup').prop('label') : $('#select_competence option[value="'+value+'"]').closest('optgroup').prop('label') ;
                 //ajout du node titre
                 if(!document.getElementById("titre"+optgroup))
-                    $("#tab3 #competForm").append('<h3 class="block" id="titre'+optgroup+'"><span class="label label-info">'+optgroup+'</span></h3>');
+                    $("#tab3 .competForm").append('<h3 class="block" id="titre'+optgroup+'"><span class="label label-info">'+optgroup+'</span></h3>');
+                if($("#checkbox112_7").is(":checked"))
+                {
+                    $("#select_eleve > option").prop("selected","selected"); // si exam on selectionne tout les eleves de la classe
+
+                }
+                var tabEleve = $("#select_eleve").select2("val");
                 //ajout de la competence selectionnee
                 $.each(value,function(key,val){
-                    var tabEleve = $("#select_eleve").select2("val");
-                $('[id="titre'+optgroup+'"]').after('<div class="form-group form-md-line-input" id="formgroup'+val+'">\n\
-                                                <h4 >'+$('#select_competence option[value="'+val+'"]').text()+'</h4>\n\
-                                                    </div>');
+                    i++;
+                    $('[id="titre'+optgroup+'"]').after('<div class="panel panel-default fermdiv'+val+'" onclick="App.scrollTo($(this), -200);">'+//ajout titre de laccordeon
+                                                         '<div class="panel-heading">' +
+                                                            '<h4 class="panel-title">'+
+                                                                '<a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_'+i+'" aria-expanded="false">'+
+                                                                $('#select_competence option[value="'+val+'"]').text()+
+                                                                '</a>'+
+                                                            '</h4>' +
+                                                         '</div>' +
+                        '<div id="collapse_3_'+i+'" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">'+// debut du div des competence
+                        '<div class="panel-body" id="formgroup'+val+'">'
+                    );
                     //ajouter chaque eleve pour la competence selectionné (competence1 eleve1 - competence1 eleve2 etc)
                     $("#formgroup"+val).after('<div class="row" id="formgroup'+val+'_">');
                     $.each(tabEleve,function(key,val2){
@@ -58,7 +73,7 @@ var FormWizard = function () {
                         {
                             eDiv='</div>';
                         }
-                        $("#formgroup"+val).after(
+                        $("#formgroup"+val).append(
                             '<div id="formgroup'+val+'_" class="col-md-3">' +
                             '<div class="form-group">' +
                             '<label class="control-label">'+$('#select_eleve option[value="'+val2+'"]').text()+'</label>' +
@@ -68,7 +83,10 @@ var FormWizard = function () {
                             '</div>'+eDiv)
                     })
                     $('.row #formgroup'+val+'_').append("<hr>");
+                    $(".fermdiv"+i).append('</div></div></div>');
+
                 });
+                $("#tab3 .competForm").append('</div>');
                 $(".sliderNote").ionRangeSlider({
                     grid: true,
                     grid_num:4,
@@ -80,16 +98,16 @@ var FormWizard = function () {
                     switch (parseInt($that.prop("value"))) // pour afficher le bon commentaire en fonction de la note attribuer
                     {
                         case 1:
-                            $that.next('.help-block:first').text("Non aquis");
+                            $that.next('.help-block:first').text("Non acquis");
                             break;
                         case 2:
-                            $that.next('.help-block:first').text("En cours d'aquisition");
+                            $that.next('.help-block:first').text("En cours d'acquisition");
                             break;
                         case 3:
                             $that.next('.help-block:first').text("A renforcer");
                             break;
                         case 4:
-                            $that.next('.help-block:first').text("Aquis");
+                            $that.next('.help-block:first').text("Acquis");
                             break;
                         case 5:
                             $that.next('.help-block:first').text("Maîtrisé");
@@ -102,9 +120,10 @@ var FormWizard = function () {
                 $.each(value,function(key,val){
                    $('[id="formgroup'+val+'"]').remove();
                    $('[id="formgroup'+val+'_"]').remove();
+                   $('.fermdiv'+val).remove();//('[class="panel panel-default"]:first').remove();
                 });
                 $.each($('[id^="titre"]'),function(key,val){
-                   if(!$(val).next().is("div.form-group"))
+                   if(!$(val).next().is("div.panel"))
                    {
                        $(val).remove();
                    }

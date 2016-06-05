@@ -81,7 +81,6 @@ class Prof_index extends Controller
         $classe = [15=>"BTS IRIS",
             155=>"BTS SNIR",];
         $arr_acceuil = ["classes"=>$classe
-
         ];
         return view("layouts.prof.evaluation",$arr_acceuil);
     }
@@ -164,6 +163,9 @@ class Prof_index extends Controller
             "data"=>[[1458952236000, 2], [1457656236000, 2], [1455150636000, 5], [1454373036000, 1], [1451694636000, 4], [1451953836000, 5], [1452126636000, 3], [1452472236000, 2], [1452904236000, 3]]
         ],
         [   "name"=>"Professeur",
+            "type"=>"area",
+            "data"=> [[1458952236000, 1], [1457656236000, 5], [1455150636000, 1], [1454373036000, 3], [1451694636000, 1], [1451953836000, 2], [1452126636000, 1], [1452472236000, 4], [1452904236000, 3]]
+        ],[   "name"=>"Professeur11",
             "type"=>"area",
             "data"=> [[1458952236000, 1], [1457656236000, 5], [1455150636000, 1], [1454373036000, 3], [1451694636000, 1], [1451953836000, 2], [1452126636000, 1], [1452472236000, 4], [1452904236000, 3]]
         ]
@@ -379,7 +381,7 @@ class Prof_index extends Controller
             "nom_classe"=>"BTS IRIS", // mettre le vrai nom selon lid de la classe
             "eleves"=>[
                 [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,99999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -387,7 +389,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -395,7 +397,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -403,7 +405,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -411,7 +413,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -419,7 +421,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,99999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -427,7 +429,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -435,7 +437,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -443,7 +445,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -451,7 +453,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -459,7 +461,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -467,7 +469,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -475,7 +477,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -483,7 +485,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -491,7 +493,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -499,7 +501,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -507,7 +509,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -515,7 +517,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -523,7 +525,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -531,7 +533,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -539,7 +541,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -547,7 +549,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -555,7 +557,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -563,7 +565,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -571,7 +573,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -579,7 +581,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -587,7 +589,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -595,7 +597,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -603,7 +605,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -611,7 +613,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -619,7 +621,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -627,7 +629,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -635,7 +637,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -643,7 +645,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -651,7 +653,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -659,7 +661,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -667,7 +669,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -675,7 +677,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -683,7 +685,7 @@ class Prof_index extends Controller
                     "cp"=>"69006",
                     "dob"=>"12/02/1993",
                 ],  [
-                    "id_eleve"=>mt_rand(0,9),
+                    "id_eleve"=>mt_rand(0,999999999),
                     "nom"=>"Layani",
                     "prenom"=>"Meyer",
                     "adresse"=>"50 Boulvard des Belges",
@@ -788,5 +790,74 @@ class Prof_index extends Controller
         return redirect(url()->previous()."#tab_1_3")->with("statut","ok","msg","Les données ont bien été mis à jour"); //si c ok
         //sinon
         //return  redirect(url()->previous()."#tab_1_2")->with("statut","bad","msg","Erreur dans la bdd"); // si c bad
+    }
+    public function tab_competNonEval(request $request)//Utilisaé pour le remplir tableau rapport des competences non evaluer.je transmet tout le formulaire des critere du rapport en get.
+    {
+        //le param type_tab => eval ,retourne le tableau des competence non evaluer de type examen
+        //le param type_tab => simple ,retourne le tableau des competence non evaluer de type simple
+        //le param type_tab => eleve ,retourne le tableau des competence non evaluer type eleve
+        $validator =  $this->validate($request, [
+            'type_eval' => 'required',
+        ]);
+
+        if($validator) {
+            return response(["content"=>"bad parameters","status"=>"422"]);
+        }
+        $competence_sans_eval = [
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type"=>"Tout les type",
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type"=>"Tout les type",
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type"=>"Tout les type",
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type"=>"Tout les type",
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type"=>"Tout les type",
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type"=>"Tout les type",
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type"=>"Tout les type",
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type"=>"Tout les type",
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type"=>"Tout les type",
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type"=>"Tout les type",
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type"=>"Tout les type",
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type"=>"Tout les type",
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type"=>"Tout les type",
+            ],
+
+        ];
+        return response()->json($competence_sans_eval);
     }
 }

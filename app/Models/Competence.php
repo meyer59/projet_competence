@@ -73,7 +73,7 @@ class Competence extends Model
                                             INNER JOIN users ON users.id = auto_evaluer.users_id
                                             WHERE users.id = ?
                                             AND auto_evaluer.date_autoEval >= '{$limit[0]} 00:00:00'
-                                            AND auto_evaluer.date_autoEval <= '{$limit[1]} 00:00:00'
+                                            AND auto_evaluer.date_autoEval <= '{$limit[1]} 23:59:59'
                                             AND competence.id_competence = ?
                                             ORDER BY auto_evaluer.date_autoEval
                                             ",[$id_eleve,$id_competence]);
@@ -111,7 +111,7 @@ class Competence extends Model
                                             WHERE eleve.id = ?
                                             AND prof.id = ?
                                             AND evaluer_simplement.date_evaluerSimplement >= '{$limit[0]} 00:00:00'
-                                            AND evaluer_simplement.date_evaluerSimplement <= '{$limit[1]} 00:00:00'
+                                            AND evaluer_simplement.date_evaluerSimplement <= '{$limit[1]} 23:59:59'
                                             AND competence.id_competence = ?
                                             ORDER BY evaluer_simplement.date_evaluerSimplement
                                             ",[$id_eleve,$id_prof,$id_competence]);
@@ -149,7 +149,7 @@ class Competence extends Model
                                             WHERE eleve.id = ?
                                             AND prof.id = ?
                                             AND evaluer_avec_epreuve.date_eval >= '{$limit[0]} 00:00:00'
-                                            AND evaluer_avec_epreuve.date_eval <= '{$limit[1]} 00:00:00'
+                                            AND evaluer_avec_epreuve.date_eval <= '{$limit[1]} 23:59:59'
                                             AND competence.id_competence = ?
                                             ORDER BY evaluer_avec_epreuve.date_eval
                                             ",[$id_eleve,$id_prof,$id_competence]);
@@ -338,6 +338,80 @@ class Competence extends Model
                                       INNER JOIN groupe_competence ON groupe_competence.id_groupeCompetence = competence.id_groupeCompetence
                                       WHERE groupe_competence.id_groupeCompetence = ?",
                                       array($id_matiere));
+        return $all_competence;
+    }
+    public static function getCompetenceNEAutoEval($competence,$users,$prof)
+    {
+        $all_competence = DB::select("SELECT groupe_competence.nom_groupe AS nom_matiere,competence.nom_competence,'Auto-evaluer' AS nom_type
+                                      FROM competence
+                                      INNER JOIN groupe_competence ON competence.id_groupeCompetence = groupe_competence.id_groupeCompetence
+                                      INNER JOIN matiere ON groupe_competence.id_matiere = matiere.id_matiere
+                                      INNER JOIN suivre ON suivre.id_matiere = matiere.id_matiere
+                                      INNER JOIN groupe ON suivre.id_groupe = groupe.id_groupe
+                                      INNER JOIN appartenir ON appartenir.id_groupe = groupe.id_groupe
+                                      INNER JOIN users eleve ON appartenir.users_id = eleve.id
+                                      INNER JOIN intervient ON intervient.id_matiere = matiere.id_matiere
+                                      INNER JOIN users prof ON prof.id = intervient.users_id
+                                      WHERE competence.id_competence NOT IN(
+                                        SELECT id_competence
+                                        FROM auto_evaluer
+                                        WHERE auto_evaluer.users_id = {$users}
+                                        AND auto_evaluer.id_competence = {$competence}
+                                      )
+                                      AND eleve.id = {$users}
+                                      AND prof.id = {$prof}");
+
+        return $all_competence;
+    }
+
+    public static function getCompetenceNEEvalSimple($competence,$users,$prof)
+    {
+        $all_competence = DB::select("SELECT groupe_competence.nom_groupe AS nom_matiere,competence.nom_competence,'Evaluer Simplement' AS nom_type
+                                      FROM competence
+                                      INNER JOIN groupe_competence ON competence.id_groupeCompetence = groupe_competence.id_groupeCompetence
+                                      INNER JOIN matiere ON groupe_competence.id_matiere = matiere.id_matiere
+                                      INNER JOIN suivre ON suivre.id_matiere = matiere.id_matiere
+                                      INNER JOIN groupe ON suivre.id_groupe = groupe.id_groupe
+                                      INNER JOIN appartenir ON appartenir.id_groupe = groupe.id_groupe
+                                      INNER JOIN users eleve ON appartenir.users_id = eleve.id
+                                      INNER JOIN intervient ON intervient.id_matiere = matiere.id_matiere
+                                      INNER JOIN users prof ON prof.id = intervient.users_id
+                                      WHERE competence.id_competence NOT IN(
+                                        SELECT id_competence
+                                        FROM evaluer_simplement
+                                        WHERE evaluer_simplement.users_id_eleve = {$users}
+                                        AND evaluer_simplement.id_competence = {$competence}
+                                        AND evaluer_simplement.users_id_prof = {$prof}
+                                      )
+                                      AND eleve.id = {$users}
+                                      AND prof.id = {$prof}");
+
+        return $all_competence;
+    }
+    public static function getCompetenceNEEvalEpreuve($competence,$users,$prof)
+    {
+        $all_competence = DB::select("SELECT groupe_competence.nom_groupe AS nom_matiere,competence.nom_competence,'Epreuve' AS nom_type
+                                      FROM competence
+                                      INNER JOIN groupe_competence ON competence.id_groupeCompetence = groupe_competence.id_groupeCompetence
+                                      INNER JOIN matiere ON groupe_competence.id_matiere = matiere.id_matiere
+                                      INNER JOIN suivre ON suivre.id_matiere = matiere.id_matiere
+                                      INNER JOIN groupe ON suivre.id_groupe = groupe.id_groupe
+                                      INNER JOIN appartenir ON appartenir.id_groupe = groupe.id_groupe
+                                      INNER JOIN users eleve ON appartenir.users_id = eleve.id
+                                      INNER JOIN intervient ON intervient.id_matiere = matiere.id_matiere
+                                      INNER JOIN users prof ON prof.id = intervient.users_id
+                                      WHERE competence.id_competence NOT IN(
+                                        SELECT id_competence
+                                        FROM evaluer_avec_epreuve
+                                        INNER JOIN epreuve ON evaluer_avec_epreuve.id_epreuve = epreuve.id_epreuve
+                                        INNER JOIN users prof ON prof.id = epreuve.users_id
+                                        WHERE evaluer_avec_epreuve.users_id_eleve = {$users}
+                                        AND evaluer_avec_epreuve.id_competence = {$competence}
+                                        AND prof.id = {$prof}
+                                      )
+                                      AND eleve.id = {$users}
+                                      ");
+
         return $all_competence;
     }
 

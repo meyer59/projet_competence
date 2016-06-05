@@ -35,10 +35,10 @@
                     <div class="portlet light profile-sidebar-portlet bordered">
                         <!-- SIDEBAR USERPIC -->
                         <div class="profile-userpic">
-                            <img src=" @if(file_exists( asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")))
-                             {{asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")}}
-                              @else {{asset("assets/pages/media/profile/prof_1.jpg")}}
-                             @endif" class="img-responsive" alt="">
+                            <img src=" @if(file_exists( public_path()."/assets/pages/media/profile/prof_".Auth::user()->id.".jpg"))
+                            {{asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")}}
+                            @else {{asset("assets/pages/media/profile/prof_1.jpg")}}
+                            @endif" class="img-responsive" alt="">
                         </div>
                         <!-- END SIDEBAR USERPIC -->
                         <!-- SIDEBAR USER TITLE -->
@@ -97,7 +97,7 @@
                                     <div class="tab-content">
                                         <!-- PERSONAL INFO TAB -->
                                         <div class="tab-pane active" id="tab_1_1">
-                                            <form role="form" method="post" action="{{url("prof/editProfil")}}">
+                                            <form role="form" method="post" action="">
                                                 {{ csrf_field() }}
                                                 <div class="form-group @if($errors->first('nom')) has-error @endif">
                                                     <label class="control-label">Nom</label>
@@ -135,12 +135,15 @@
                                         <!-- CHANGE AVATAR TAB -->
                                         <div class="tab-pane" id="tab_1_2">
                                             <p> Metre à jour votre photo de profil</p>
-                                            <form action="{{url("prof/editProfilPhoto")}}" method="post" role="form">
+                                            <form action="{{url("eleve/editProfilPhoto")}}" enctype="multipart/form-data" method="post" role="form">
                                                 {{csrf_field()}}
                                                 <div class="form-group">
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                            <img src="{{ asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")}}" alt=""> </div>
+                                                            <img src=" @if(file_exists( public_path()."/assets/pages/media/profile/prof_".Auth::user()->id.".jpg"))
+                                                            {{asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")}}
+                                                            @else {{asset("assets/pages/media/profile/prof_1.jpg")}}
+                                                            @endif"  alt=""> </div>
                                                         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
                                                         <div>
                                                                         <span class="btn default btn-file">
@@ -159,7 +162,7 @@
                                         <!-- END CHANGE AVATAR TAB -->
                                         <!-- CHANGE PASSWORD TAB -->
                                         <div class="tab-pane" id="tab_1_3">
-                                            <form action="{{url("prof/editProfilpassword")}}" method="post">
+                                            <form action="{{url("eleve/editProfilpassword")}}" method="post">
                                                 {{csrf_field()}}
                                                 <div class="form-group @if($errors->first('actual-password')) has-error @endif">
                                                     <label class="control-label">Mot de passe actuel</label>

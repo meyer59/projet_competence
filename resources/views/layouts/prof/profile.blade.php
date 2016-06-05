@@ -35,7 +35,7 @@
                     <div class="portlet light profile-sidebar-portlet bordered">
                         <!-- SIDEBAR USERPIC -->
                         <div class="profile-userpic">
-                            <img src=" @if(file_exists( asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")))
+                            <img src=" @if(file_exists( public_path()."/assets/pages/media/profile/prof_".Auth::user()->id.".jpg"))
                             {{asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")}}
                             @else {{asset("assets/pages/media/profile/prof_1.jpg")}}
                             @endif" class="img-responsive" alt="">
@@ -138,12 +138,12 @@
                                         <!-- CHANGE AVATAR TAB -->
                                         <div class="tab-pane" id="tab_1_2">
                                             <p> Metre à jour votre photo de profil</p>
-                                            <form action="{{url("prof/editProfilPhoto")}}" method="post" role="form">
+                                            <form action="{{url("prof/editProfilPhoto")}}" method="post" role="form" enctype="multipart/form-data">
                                                 {{csrf_field()}}
-                                                <div class="form-group">
+                                                <div class="form-group @if($errors->first('actual-password')) has-error @endif">
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                            <img src=" @if(file_exists( asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")))
+                                                            <img src=" @if(file_exists( public_path()."/assets/pages/media/profile/prof_".Auth::user()->id.".jpg"))
                                                             {{asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")}}
                                                             @else {{asset("assets/pages/media/profile/prof_1.jpg")}}
                                                             @endif" class="img-responsive" alt="">
@@ -154,6 +154,7 @@
                                                                             <span class="fileinput-new"> Sélectionner une image </span>
                                                                             <span class="fileinput-exists"> Changer </span>
                                                                             <input type="file" name="image"> </span>
+                                                            @if($errors->first('actual-password'))<span class="help-block">{{ $errors->first('actual-password') }}</span>  @endif
                                                             <a href="javascript:;" class="btn default fileinput-exists" data-dismiss="fileinput"> Effacer </a>
                                                         </div>
                                                     </div>

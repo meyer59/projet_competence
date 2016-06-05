@@ -250,6 +250,7 @@
             },
             success: function (donnees) {
                 $("#ribbon_noneval").text("Competence de type: "+ $('select[name="type_eval"] option:selected').text());
+                $('#note_noneval').DataTable().clear();
                 if(donnees.length > 0)
                 {
                    $('#note_noneval').DataTable().rows.add(donnees).draw();

@@ -239,8 +239,9 @@ function init_graphe() {
                         point: {
                             events: {
                                 click: function(e) {
-                                    var note = (this.index)+1;
-                                    //console.log("?note="+note+"classeId="+classeId+""+"competenceId="+competenceId)
+                                    var note = (this.name).substr(0, 1);
+                                    //var note = (this.index)+1;
+                                    //console.log(this);
                                     $.fancybox({
                                         type: 'iframe',
                                         height: "auto",
@@ -250,7 +251,7 @@ function init_graphe() {
                                             scrolling : 'auto',
                                             preload   : 'true'
                                         },
-                                        'href': url_chart_detail_eleve_fancybox+"?note="+note+"&classeId="+classeId+""+"&matiereId="+matiereId+"&competenceId="+competenceId
+                                        'href': url_chart_detail_eleve_fancybox+"?note="+note+"&classeId="+classeId+""+"&matiereId="+matiereId+"&competenceId="+competenceId+"&type_eval="+$('select[name="type_eval"]').val(),
                                     });
                                 }
                             }

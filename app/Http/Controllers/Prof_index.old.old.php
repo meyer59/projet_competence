@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Epreuve;
-use App\Models\EvaluerAvecEpreuve;
 use App\Models\EvaluerSimplement;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+
 use App\Http\Requests;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -17,6 +15,8 @@ use App\Models\Appartenir;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Competence;
 use App\Models\Groupe;
+use Hash;
+
 
 class Prof_index extends Controller
 {
@@ -24,13 +24,13 @@ class Prof_index extends Controller
     {
         //donner a recevoir dans la vue
         //notation: recupere les derniere notation effectuer par le proffeseur sur des eleve
-        $arr_acceuil = ["title"=>"Acceuil professeur",
+        /*$arr_acceuil = ["title"=>"Acceuil professeur",
             "classes"=>[["nom_classe"=>"BTS SNIR", "nb_eleves"=>"23", "classeId"=>"12"],
                         ],
             "notations"=>[["nom_eleve"=>"Meyer Layani","note"=>5,"matiere"=>"PHP","competence"=>"savoir ecrire une variable","date_note"=>"12/01/2016"],
                         ],
             "historique"=>[["action"=>"Notation","text_action"=>"Notation effectué pour Meyer layani","date_action"=>"12/01/15 15:01"]]
-        ];
+        ];*/
         $arr_acceuil = ['title'=>'acceuil prof',
                         'classes'=>User::getProfClasses(Auth::user()->id),
                         "notations"=>(User::getLastNoteEpreuve(Auth::user()->id)),
@@ -104,58 +104,26 @@ class Prof_index extends Controller
     {
         if(!empty($request->input('eleve')) && !empty($request->input('competence')))
         {
-            switch($request->input('type_eval'))
+            foreach($request->input('eleve') as $eleve)
             {
-                case 'eval_simple':
-                    $this->EvaluerSimplement($request);
-                    //return response();
-                    break;
-                case 'exam':
-                    $this->EvaluerAvecEpreuve($request);
-                    //return response();
-                        break;
-                default:
-                    return response('',422);
+                foreach($request->input('competence') as $competence)
+                {
+                    $this->EvaluerSimplement($eleve,$competence,$request->input('noteCompetId_'.$competence.'eleveId_'.$eleve));
+                }
             }
         }
-
+        return var_dump(true);
     }
 
-    public function EvaluerSimplement(Request $request)
+    public function EvaluerSimplement($id_eleve,$id_competence,$note)
     {
-        foreach($request->input('eleve') as $eleve)
-        {
-            foreach($request->input('competence') as $competence)
-            {
-                $evaluer_simplement = new EvaluerSimplement();
-                $evaluer_simplement->id_competence = $competence;
-                $evaluer_simplement->users_id_prof = Auth::user()->id;
-                $evaluer_simplement->users_id_eleve = $eleve;
-                $evaluer_simplement->note_evaluerSimplement = $request->input('noteCompetId_'.$competence.'eleveId_'.$eleve);
-                $evaluer_simplement->date_evaluerSimplement = date('Y/m/d H:i:s');
-                $evaluer_simplement->save();
-            }
-        }
-    }
-    public function EvaluerAvecEpreuve(Request $request)
-    {
-        $eval_Epreuve = new Epreuve();
-        $eval_Epreuve->users_id = Auth::user()->id;
-        $eval_Epreuve->date_epreuve = date('Y/m/d');
-        $eval_Epreuve->save();
-         foreach($request->input('eleve') as $eleve)
-         {
-             foreach($request->input('competence') as $competence)
-             {
-                 $evalAvecEpreuve = new EvaluerAvecEpreuve();
-                 $evalAvecEpreuve->date_eval = date('Y/m/d H:i:s');
-                 $evalAvecEpreuve->note = $request->input('noteCompetId_'.$competence.'eleveId_'.$eleve);
-                 $evalAvecEpreuve->id_competence = $competence;
-                 $evalAvecEpreuve->id_epreuve = $eval_Epreuve->id_epreuve;
-                 $evalAvecEpreuve->users_id_eleve = $eleve;
-                 $evalAvecEpreuve->save();
-             }
-         }
+        $evaluer_simplement = new EvaluerSimplement();
+        $evaluer_simplement->id_competence = $id_competence;
+        $evaluer_simplement->users_id_prof = Auth::user()->id;
+        $evaluer_simplement->users_id_eleve = $id_eleve;
+        $evaluer_simplement->note_evaluerSimplement = $note;
+        $evaluer_simplement->date_evaluerSimplement = date('Y/m/d H:i:s');
+        $evaluer_simplement->save();
     }
     public function getRapport()
     {
@@ -207,7 +175,7 @@ class Prof_index extends Controller
             "data"=>[[1458952236000, 2], [1457656236000, 2], [1455150636000, 5], [1454373036000, 1], [1451694636000, 4], [1451953836000, 5], [1452126636000, 3], [1452472236000, 2], [1452904236000, 3]]
         ],
         [   "name"=>"Professeur",
-            "type"=>"area",
+            "type"=>"area", 
             "data"=> [[1458952236000, 1], [1457656236000, 5], [1455150636000, 1], [1454373036000, 3], [1451694636000, 1], [1451953836000, 2], [1452126636000, 1], [1452472236000, 4], [1452904236000, 3]]
         ],
             [   "name"=>"Professeur eval",
@@ -250,7 +218,7 @@ class Prof_index extends Controller
                 $data = $eval_epreuve;
                 break;
             default:
-                $data = $eval_simple;
+                $data = $auto_eval;
 
         }
         $series = [[
@@ -448,28 +416,9 @@ class Prof_index extends Controller
             "date"=>"12/02/2016",
             ],
         ]];
-
         $donnee_eleve_auto_eval = User::getcountNoteCompetenceAutoEvalDetail($request->input('classeId'),$request->input('competenceId'),$request->input('note'));
         $donnee_eleve_eval_simple = User::getcountNoteCompetenceEvalSimpleDetail($request->input('classeId'),$request->input('competenceId'),$request->input('note'));
-        $donne_eval_epreuve = User::getcountNoteEvalEpreuveDetail($request->input('classeId'),$request->input('competenceId'),$request->input('note'));
-
-        switch($request->input('type_eval'))
-        {
-            case 'eval':
-                $data = $donne_eval_epreuve;
-                break;
-            case 'simple':
-                $data = $donnee_eleve_eval_simple;
-                break;
-            case 'eleve':
-                $data = $donne_eval_epreuve;
-                break;
-            default:
-                $data  = $donnee_eleve_eval_simple;
-                break;
-        }
-
-        $donnee_vue = ['nom_classe' =>  Groupe::findOrFail($request->input('classeId'))->nom_groupe,'eleves' => $data];
+        $donnee_vue = ['nom_classe' =>  Groupe::findOrFail($request->input('classeId'))->nom_groupe,'eleves' => $donnee_eleve_auto_eval];
         return view("layouts.prof.graph_detail_eleve",$donnee_vue);
         //var_dump($donnee_eleve_auto_eval);
     }
@@ -809,127 +758,109 @@ class Prof_index extends Controller
         if($validator) {
             return response(["content"=>"bad parameters","status"=>"422"]);
         }
-//        $competence_sans_eval = [
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ],
-//            [   "nom_matiere"=>"PHP",
-//                "nom_competence"=>"savoir ecrire un code",
-//                "nom_type" => "eval"
-//            ]
-//        ];
-        $competence_sans_eval = Competence::getCompetenceNEAutoEval($request->input('competence'),$request->input('eleve'),Auth::user()->id);
-        $competence_eval_simple = Competence::getCompetenceNEEvalSimple($request->input('competence'),$request->input('eleve'),Auth::user()->id);
-        $competence_eval_epreuve = Competence::getCompetenceNEEvalEpreuve($request->input('competence'),$request->input('eleve'),Auth::user()->id);
-        switch($request->input('type_eval'))
-        {
-            case 'eval_simple':
-                $data = $competence_eval_simple;
-                break;
-            case 'exam':
-                $data = $competence_eval_epreuve;
-                break;
-            case 'eleve':
-                $data = $competence_sans_eval;
-                break;
-            default:
-                $data = array_merge($competence_eval_simple,$competence_eval_epreuve,$competence_sans_eval);
-
-        }
-
-        return response()->json($data);
+        $competence_sans_eval = [
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ],
+            [   "nom_matiere"=>"PHP",
+                "nom_competence"=>"savoir ecrire un code",
+                "nom_type" => "eval"
+            ]
+        ];
+        return response()->json($competence_sans_eval);
     }
-	
-	 public function editProfilPhoto(request $request)//modification des donne du prof. aide sur les input laravel https://laravel.com/docs/5.2/requests#old-input
+
+///////MODIF PAR MEYER
+    public function editProfilPhoto(request $request)//modification des donne du prof. aide sur les input laravel https://laravel.com/docs/5.2/requests#old-input
     {
 
         $validator = $this->validate($request, [
@@ -1002,10 +933,7 @@ class Prof_index extends Controller
 
 
         ];
-        if(Auth::user()->role=="prof")
         return view("layouts.prof.profile",$donnee_vue);
-        else
-            return view("layouts.eleve.profile",$donnee_vue);
     }
 
     public function postEditProfil(request $request)//modification des donne du prof. aide sur les input laravel https://laravel.com/docs/5.2/requests#old-input
@@ -1073,5 +1001,4 @@ class Prof_index extends Controller
         //sinon
         //return  redirect(url()->previous()."#tab_1_2")->with("statut","bad","msg","Erreur dans la bdd"); // si c bad
     }
-
 }

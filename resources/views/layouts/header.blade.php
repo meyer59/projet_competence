@@ -365,7 +365,7 @@
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
                                 <span class="username username-hide-on-mobile">{{ucfirst(substr(Auth::user()->prenom, 0, 1)) .".".ucfirst(Auth::user()->name)}}</span>
                                 <!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
-                                <img class="img-circle" src=" @if(file_exists( asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")))
+                                <img class="img-circle" src=" @if(file_exists( public_path()."/assets/pages/media/profile/prof_".Auth::user()->id.".jpg"))
                                 {{asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")}}
                                 @else {{asset("assets/pages/media/profile/prof_1.jpg")}}
                                 @endif" class="img-responsive" alt="">

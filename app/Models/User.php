@@ -54,7 +54,7 @@ class User extends Model
      */
     public static function getLastNoteEpreuve($prof_id)
     {
-        return  DB::select("SELECT competence.nom_competence as competence, DATE_FORMAT(evaluer_avec_epreuve.date_eval,'%d/%m/%Y') AS date_note,groupe_competence.nom_groupe AS matiere, CONCAT(eleve.name ,' ', eleve.prenom) as nom_eleve,evaluer_avec_epreuve.note
+        return  DB::select("SELECT competence.nom_competence as competence, DATE_FORMAT(evaluer_avec_epreuve.date_eval,'%d/%m/%Y') AS date_note,groupe_competence.nom_groupe AS matiere, CONCAT(UPPER(SUBSTRING(eleve.name,1,1)) ,'.', eleve.prenom) as nom_eleve,evaluer_avec_epreuve.note
                                     FROM evaluer_avec_epreuve
                                     INNER JOIN epreuve ON epreuve.id_epreuve = evaluer_avec_epreuve.id_epreuve
                                     INNER JOIN users prof ON epreuve.users_id = prof.id
@@ -103,6 +103,24 @@ class User extends Model
                                             group by evaluer_simplement.users_id_eleve
                                             HAVING max(evaluer_simplement.note_evaluerSimplement) = {$note}
                                                 ");
+        return $all_competence_query;
+    }
+    public static function getcountNoteEvalEpreuveDetail($id_classe,$id_competence,$note){
+        $all_competence_query = DB::select("select users.name as nom,users.prenom,groupe_competence.nom_groupe as matiere,competence.nom_competence as competence,{$note} as note,evaluer_avec_epreuve.date_eval as date
+                                            from evaluer_avec_epreuve
+                                            INNER join users on evaluer_avec_epreuve.users_id_eleve = users.id
+                                            inner join competence on competence.id_competence = evaluer_avec_epreuve.id_competence
+                                            inner join groupe_competence on groupe_competence.id_groupeCompetence = competence.id_groupeCompetence
+                                            inner join matiere on matiere.id_matiere = groupe_competence.id_matiere
+                                            inner join suivre on suivre.id_matiere = matiere.id_matiere
+                                            inner join groupe on suivre.id_groupe = groupe.id_groupe
+                                            inner join annee on annee.id_annee = groupe.id_annee
+                                            Where evaluer_avec_epreuve.id_competence = {$id_competence}
+                                            and groupe.id_groupe = {$id_classe}
+                                            and NOW() BETWEEN annee.date_debut and annee.date_fin
+                                            group by evaluer_avec_epreuve.users_id_eleve
+                                            HAVING max(evaluer_avec_epreuve.note) = {$note}
+                                            ");
         return $all_competence_query;
     }
 

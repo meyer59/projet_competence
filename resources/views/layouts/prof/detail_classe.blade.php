@@ -65,7 +65,7 @@
             @foreach($eleves as $eleve)
             <tr>
                 <td>
-                    <a href="javascript:;"  data-namekey="nom" data-name="nom" data-title="Entrer un nom" data-type="text" data-pk="{{$eleve["id_eleve"]}}" data-original-title="Entrer un nom" class="tdeditable editable editable-click" style="display: inline;">  {{$eleve["nom"]}} </a>
+                    <a href="javascript:;"  data-namekey="namep" data-name="name" data-title="Entrer un nom" data-type="text" data-pk="{{$eleve["id_eleve"]}}" data-original-title="Entrer un nom" class="tdeditable editable editable-click" style="display: inline;">  {{$eleve["nom"]}} </a>
                 </td>
                 <td>
                     <a href="javascript:;"  data-namekey="prenom" data-name="prenom" data-title="Entrer un prenom" data-type="text" data-pk="{{$eleve["id_eleve"]}}" data-original-title="Entrer un prenom" class="tdeditable editable editable-click" style="display: inline;">  {{$eleve["prenom"]}} </a>
@@ -164,7 +164,7 @@
         });*/
        $('#detail_eleve').on('click', '.tdeditable', function () {
           $(this).editable({
-                url: "{{url('/prof/updatppeEleve')}}",
+                url: "{{url('/prof/updateEleve')}}",
                 error: function(response, newValue) {
                     if (response.status === 500) {
                         return 'Erreur serveur';

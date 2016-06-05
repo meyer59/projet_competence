@@ -1,5 +1,5 @@
 @extends("layouts.prof.template_prof")
-@section('title', $title)
+@section('title', "Accueil professeur")
 @section("css")
     @parent
  <link href="{{ asset("assets/global/plugins/fancybox/source/jquery.fancybox.css")}}" rel="stylesheet" type="text/css">
@@ -136,7 +136,7 @@
                                                 </div>
                                             </div>
                                             <div class="col2">
-                                                <div class="date" style="width:140px;margin-left:-60px;"> {{$action["date_action"]}} </div>
+                                                <div class="date" style="width:140px;margin-left:-60px;"> {{$action["created_at"]}} </div>
                                             </div>
                                         </li>
                                     @endforeach

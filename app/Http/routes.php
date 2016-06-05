@@ -55,30 +55,36 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('/prof/eleveEtmatiereEnjson', "Prof_index@eleveEtmatiereEnjson");
                 Route::post('/prof/postcomptence', "Prof_index@postcomptence");
                 Route::get('/prof/tab_competNonEval', "Prof_index@tab_competNonEval");
+                Route::get('/prof/profile', "Prof_index@getProfile");
+
 
                 //CSRF exlus
                 Route::post('/prof/updateEleve', "Prof_index@updateEleve"); // pour le plug in xeditable de mise a jour des eleves
                // Route::post('/prof/graph_DetailEleveProf', "Prof_index@graph_DetailEleveProf");
                 //*****************FIN ROUTE PROF************************/
         });
+        Route::group(['middleware' => ['eleve']], function () {
+            Route::get('/eleve/profile', "Prof_index@getProfile");
+            Route::post('/eleve/editProfilPhoto', "Prof_index@editProfilPhoto");
+            Route::post('/eleve/editProfilpassword', "Prof_index@editProfilpassword");
+            ///////////eleve - benjamin///////////////////////////////////////////////////////
+
+            Route::get('eleve/visualisation', function () {
+                return view('layouts/eleve/visualisation');
+            });
+            Route::get('eleve/index', function () {
+                return view('layouts/eleve/index');
+            })->name('eleve_index');;
+            Route::get('eleve/menu', function () {
+                return view('layouts/eleve/menu');
+            });
+
+            Route::get('eleve/diplome', 'diplomeController@recupereDiplomeUser');
+            Route::get('eleve/visualisation', 'noteController@afficherNote');
+            Route::post('eleve/evaluation_form_valider', 'evaluationController@formulairevalider');
+            Route::get('eleve/evaluation', 'evaluationController@index');
+            Route::get('eleve/evaluation_ajax/{idmatiere}', 'evaluationController@getcompetencejson')->where('idmatiere','\d+');
+        });
     });
 
-    Route::get('/eleve/profile', "Prof_index@getProfile");
-    ///////////eleve - benjamin///////////////////////////////////////////////////////
-
-    Route::get('eleve/visualisation', function () {
-        return view('layouts/eleve/visualisation');
-    });
-    Route::get('eleve/index', function () {
-        return view('layouts/eleve/index');
-    })->name('eleve_index');;
-    Route::get('eleve/menu', function () {
-        return view('layouts/eleve/menu');
-    });
-
-    Route::get('eleve/diplome', 'diplomeController@recupereDiplomeUser');
-    Route::get('eleve/visualisation', 'noteController@afficherNote');
-    Route::post('eleve/evaluation_form_valider', 'evaluationController@formulairevalider');
-    Route::get('eleve/evaluation', 'evaluationController@index');
-    Route::get('eleve/evaluation_ajax/{idmatiere}', 'evaluationController@getcompetencejson')->where('idmatiere','\d+');
 });

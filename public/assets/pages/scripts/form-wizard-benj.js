@@ -1,4 +1,4 @@
-
+var data = [{ id: 0, text: 'enhancement' }, { id: 1, text: 'bug' }, { id: 2, text: 'duplicate' }, { id: 3, text: 'invalid' }, { id: 4, text: 'wontfix' }];
 var FormWizard = function () {
 
 
@@ -9,18 +9,11 @@ var FormWizard = function () {
                 return;
             }
            
-            $("#select_classe").select2({
-                placeholder: "Choisir une classe",
+            $("#select_categorie").select2({
+                placeholder: "Choisir une categorie",
                 allowClear: true,
                 maximumSelectionSize : 1,
-                width: 'auto',
-                language: "fr"
-            });
-            $("#select_eleve").select2({
-                placeholder: "Choisir au minimum un élève",
-                allowClear: true,
-                maximumSelectionSize : 1,
-                width: 'auto',
+                width: 'auto', 
                 language: "fr"
             });
             $('[data-toggle="confirmation"]').confirmation({
@@ -28,106 +21,55 @@ var FormWizard = function () {
             });
             $("#select_competence").multiSelect({
                 selectableOptgroup: true,
-                selectableHeader:'<span class="bg-blue bg-font-blue">Choisir les competences à évaluer : </span>',
-                selectionHeader:'<span class="bg-green bg-font-green">Competences choisies : </span>',
+                selectableHeader:'<span class="bg-blue bg-font-blue">Choisir vos competences : </span>',
+                selectionHeader:'<span class="bg-green bg-font-green">Competence choisies : </span>',
                 afterSelect : function(value){
+                    
                     addToForm(value);
                 },
                 afterDeselect : function(value){
                     delToForm(value);
                 }
             });
-            var i = 0;
-            function addToForm(value) // ajouter au formulaire de competence (final 3ieme etape)
+            function addToForm(value) // ajouter au formulaire de competence
             {
+
                 //recuperation du optgroup
-                var optgroup = ($.isArray(value)) ? $('#select_competence option[value="'+value[0]+'"]').closest('optgroup').prop('label') : $('#select_competence option[value="'+value+'"]').closest('optgroup').prop('label') ;
+                var optgroup =  $('#select_matiere option:selected').text() ;
+                
                 //ajout du node titre
                 if(!document.getElementById("titre"+optgroup))
-                    $("#tab3 .competForm").append('<h3 class="block" id="titre'+optgroup+'"><span class="label label-info">'+optgroup+'</span></h3>');
-                if($("#checkbox112_7").is(":checked"))
-                {
-                    $("#select_eleve > option").prop("selected","selected"); // si exam on selectionne tout les eleves de la classe
-
-                }
-                var tabEleve = $("#select_eleve").select2("val");
+                    $("#tab3").append('<h3 class="block" id="titre'+optgroup+'"><span class="label label-info">'+optgroup+'</span></h3>');
+                 
+                
                 //ajout de la competence selectionnee
                 $.each(value,function(key,val){
-                    i++;
-                    $('[id="titre'+optgroup+'"]').after('<div class="panel panel-default fermdiv'+val+'">'+//ajout titre de laccordeon
-                                                         '<div class="panel-heading">' +
-                                                            '<h4 class="panel-title">'+
-                                                                '<a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion3" href="#collapse_3_'+i+'" aria-expanded="false">'+
-                                                                $('#select_competence option[value="'+val+'"]').text()+
-                                                                '</a>'+
-                                                            '</h4>' +
-                                                         '</div>' +
-                        '<div id="collapse_3_'+i+'" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">'+// debut du div des competence
-                        '<div class="panel-body" id="formgroup'+val+'">'
-                    );
-                    //ajouter chaque eleve pour la competence selectionné (competence1 eleve1 - competence1 eleve2 etc)
-                    $("#formgroup"+val).after('<div class="row" id="formgroup'+val+'_">');
-                    $.each(tabEleve,function(key,val2){
-                        var eDiv="";
-                        if(key==(tabEleve.length-1))
-                        {
-                            eDiv='</div>';
-                        }
-                        $("#formgroup"+val).append(
-                            '<div id="formgroup'+val+'_" class="col-md-3">' +
-                            '<div class="form-group">' +
-                            '<label class="control-label">'+$('#select_eleve option[value="'+val2+'"]').text()+'</label>' +
-                            '<input type="text" value="1" name="noteCompetId_'+val+'eleveId_'+val2+'" class="form-control sliderNote">' +
-                            '<span class="help-block">&nbsp;</span>' +
-                            '</div>' +
-                            '</div>'+eDiv)
-                    })
-                    $('.row #formgroup'+val+'_').append("<hr>");
-                    $(".fermdiv"+i).append('</div></div></div>');
+                                     
+                $('#tab3').append('<div class="form-group form-md-line-input" id="formgroup'+val+'">\n\
+                                                </br>\n\
+                                                <h4> <input type="radio" class=”” name="radio_'+val+'" value="1"> Non acquis &nbsp; &nbsp; <input class=”toggle”  type="radio" name="radio_'+val+'" value="2"> En cours d\'acquisition &nbsp; &nbsp; <input class=”toggle”  type="radio" name="radio_'+val+'" value="3"> A renforcer &nbsp; &nbsp; <input class=”toggle”  type="radio" name="radio_'+val+'" value="4" checked="checked"> Acquis &nbsp; &nbsp;<input class=”toggle”  type="radio" name="radio_'+val+'" value="5"> Maîtrisé </h4>\n\
+                                                </br> \n\
+                                                <input id="com_'+val+'" type="text" name="com_'+val+'" placeholder="Ajouter un commentaire personnel..." class="form-control">\n\
+                                                <label class="bold" for="com_'+val+'" >'+$('#select_competence option[value="'+val+'"]').text()+'</label>\n\
+                                                 </br>   \n\
+                                                    </div>');
+                });                       
 
-                });
-                $("#tab3 .competForm").append('</div>');
-                $(".sliderNote").ionRangeSlider({
-                    grid: true,
-                    grid_num:4,
-                    to_shadow:true,
-                    min: 1,
-                    max: 5
-                }).on("change", function (obj) {  // appeler lorsque le slider des notes change. Affiche les commentaire sur la note
-                    $that = $(this);
-                    switch (parseInt($that.prop("value"))) // pour afficher le bon commentaire en fonction de la note attribuer
-                    {
-                        case 1:
-                            $that.next('.help-block:first').text("Non acquis");
-                            break;
-                        case 2:
-                            $that.next('.help-block:first').text("En cours d'acquisition");
-                            break;
-                        case 3:
-                            $that.next('.help-block:first').text("A renforcer");
-                            break;
-                        case 4:
-                            $that.next('.help-block:first').text("Acquis");
-                            break;
-                        case 5:
-                            $that.next('.help-block:first').text("Maîtrisé");
-                            break;
-                    }
-                });;
             }
+
+            
             function delToForm(value) // suppr champ du formulaire de competence
             {
                 $.each(value,function(key,val){
                    $('[id="formgroup'+val+'"]').remove();
-                   $('[id="formgroup'+val+'_"]').remove();
-                   $('.fermdiv'+val).remove();//('[class="panel panel-default"]:first').remove();
                 });
                 $.each($('[id^="titre"]'),function(key,val){
-                   if(!$(val).next().is("div.panel"))
+                   if(!$(val).next().is("div.form-group"))
                    {
-                       $(val).remove();
+                       $(val).remove(); console.log($(val).text()+" removed")
                    }
                 });
+                console.log()
             }
 //pour ajouter des option dans le select avc ajax $('#your-select').multiSelect('addOption', { value: 'test', text: 'test', index: 0, nested: 'optgroup_label' });
             var form = $('#submit_form');
@@ -177,12 +119,12 @@ var FormWizard = function () {
                 success: function (label) {
                     if (label.attr("for") == "gender" || label.attr("for") == "payment[]") { // for checkboxes and radio buttons, no need to show OK icon
                         label
-                            .closest('.form-group').removeClass('has-error');//.addClass('has-success');
+                            .closest('.form-group').removeClass('has-error').addClass('has-success');
                         label.remove(); // remove error label here
                     } else { // display success icon for other inputs
                         label
                             .addClass('valid') // mark the current input as valid and display OK icon
-                        .closest('.form-group').removeClass('has-error');//.addClass('has-success'); // set success class to the control group
+                        .closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
                     }
                 },
 
@@ -251,17 +193,16 @@ var FormWizard = function () {
                     }
                     if(index == 1) //on recupere les donnee selon la valeur du select
                     { 
-                        //var targ = $("#form_wizard_1");
-                        //     App.blockUI({
-                        //        target:targ,
-                        //        animate: true,
-                        //        overlayColor: '#000000',
-                        //        cenrerY: true
-                        //    });
-                        ////recuperation des competence affilier a la classe
-                        // window.setTimeout(function() {
-                        //        App.unblockUI(targ);
-                        //    }, 1000);
+                        var targ = $("#form_wizard_1");
+                             App.blockUI({
+                                target:targ,
+                                animate: true,
+                                overlayColor: '#000000',
+                                cenrerY: true
+                            });
+                            window.setTimeout(function() {
+                                App.unblockUI(targ);
+                            }, 1000);
                         
                     }
                     handleTitle(tab, navigation, index);
@@ -288,7 +229,12 @@ var FormWizard = function () {
             });
 
             $('#form_wizard_1').find('.button-previous,.button-submit').hide();
-
+            $('#submit_form').on("confirmed.bs.confirmation",".button-submit",function () {
+                    
+                document.getElementById("submit_form").submit();
+                 //href="{{ url("eleve/evaluation_form_valider") }}";
+               // alert(document.forms['liste_competence'].bidule.value);
+            });
         }
 
     };

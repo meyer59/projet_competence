@@ -1,4 +1,4 @@
-@extends("layouts.prof.template_prof")
+@extends("layouts.eleve.template_eleve")
 @section('title', "Profil utilisateur")
 @section("css")
     <link href="{{ asset("assets/pages/css/profile.min.css")}}" rel="stylesheet" type="text/css">
@@ -36,9 +36,9 @@
                         <!-- SIDEBAR USERPIC -->
                         <div class="profile-userpic">
                             <img src=" @if(file_exists( asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")))
-                            {{asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")}}
-                            @else {{asset("assets/pages/media/profile/prof_1.jpg")}}
-                            @endif" class="img-responsive" alt="">
+                             {{asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")}}
+                              @else {{asset("assets/pages/media/profile/prof_1.jpg")}}
+                             @endif" class="img-responsive" alt="">
                         </div>
                         <!-- END SIDEBAR USERPIC -->
                         <!-- SIDEBAR USER TITLE -->
@@ -129,9 +129,6 @@
                                                     <input type="text" name="telephone" placeholder="" value="{{old("telephone",$telephone)}}" class="form-control" {{Auth::user()->role == "eleve" ? "disabled" : ""}}>
                                                     @if($errors->first('telephone'))<span class="help-block">{{ $errors->first('telephone') }}</span>  @endif
                                                 </div>
-                                                <div class="margiv-top-10" {{Auth::user()->role == "eleve" ? 'style="display:none;"' : ""}}>
-                                                    <button class="btn green"> Valider </button>
-                                                </div>
                                             </form>
                                         </div>
                                         <!-- END PERSONAL INFO TAB -->
@@ -143,11 +140,7 @@
                                                 <div class="form-group">
                                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                                         <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                                            <img src=" @if(file_exists( asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")))
-                                                            {{asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")}}
-                                                            @else {{asset("assets/pages/media/profile/prof_1.jpg")}}
-                                                            @endif" class="img-responsive" alt="">
-                                                        </div>
+                                                            <img src="{{ asset("assets/pages/media/profile/prof_".Auth::user()->id.".jpg")}}" alt=""> </div>
                                                         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
                                                         <div>
                                                                         <span class="btn default btn-file">

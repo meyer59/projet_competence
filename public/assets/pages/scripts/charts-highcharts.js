@@ -250,7 +250,7 @@ function init_graphe() {
                                             scrolling : 'auto',
                                             preload   : 'true'
                                         },
-                                        'href': url_chart_detail_eleve_fancybox+"?note="+note+"classeId="+classeId+""+"matiereId="+matiereId+"competenceId="+competenceId
+                                        'href': url_chart_detail_eleve_fancybox+"?note="+note+"&classeId="+classeId+""+"&matiereId="+matiereId+"&competenceId="+competenceId
                                     });
                                 }
                             }

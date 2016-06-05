@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -710,7 +711,10 @@ class Prof_index extends Controller
 
 
         ];
+        if(Auth::user()->role == "prof")
         return view("layouts.prof.profile",$donnee_vue);
+        else
+            return view("layouts.eleve.profile",$donnee_vue);
     }
     public function postEditProfil(request $request)//modification des donne du prof. aide sur les input laravel https://laravel.com/docs/5.2/requests#old-input
     {

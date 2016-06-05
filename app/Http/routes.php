@@ -39,7 +39,6 @@ Route::group(['middleware' => ['web']], function () {
                 Route::get('/prof/index', "Prof_index@getIndex")->name('prof_index');
                 Route::get('/prof/eval', "Prof_index@getEval");
                 Route::get('/prof/rapport', "Prof_index@getRapport");
-                Route::get('/prof/profile', "Prof_index@getProfile");
 
                 //creation des formulaires
                 //Route::get('/prof/{n}/creation_form', "Prof_creationForm@index")->where('n','\d+');
@@ -63,4 +62,23 @@ Route::group(['middleware' => ['web']], function () {
                 //*****************FIN ROUTE PROF************************/
         });
     });
+
+    Route::get('/eleve/profile', "Prof_index@getProfile");
+    ///////////eleve - benjamin///////////////////////////////////////////////////////
+
+    Route::get('eleve/visualisation', function () {
+        return view('layouts/eleve/visualisation');
+    });
+    Route::get('eleve/index', function () {
+        return view('layouts/eleve/index');
+    })->name('eleve_index');;
+    Route::get('eleve/menu', function () {
+        return view('layouts/eleve/menu');
+    });
+
+    Route::get('eleve/diplome', 'diplomeController@recupereDiplomeUser');
+    Route::get('eleve/visualisation', 'noteController@afficherNote');
+    Route::post('eleve/evaluation_form_valider', 'evaluationController@formulairevalider');
+    Route::get('eleve/evaluation', 'evaluationController@index');
+    Route::get('eleve/evaluation_ajax/{idmatiere}', 'evaluationController@getcompetencejson')->where('idmatiere','\d+');
 });

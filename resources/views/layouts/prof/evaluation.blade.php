@@ -12,7 +12,7 @@
         <div class="page-head">
             <!-- BEGIN PAGE TITLE -->
             <div class="page-title">
-                <h1>Évaluation des élèves par le professeur
+                <h1>Évaluation des élèves par  le professeur
                     <small>suivre les instructions du formulaire ci-dessous</small>
                 </h1>
             </div>
@@ -134,7 +134,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-md-3">Liste des competences disponibles <span class="required"> * </span></label>
                                                 <div class="col-md-8">
-                                                    <select name="competence" multiple="multiple" id="select_competence" class="form-control">
+                                                    <select name="competence[]" multiple="multiple" id="select_competence" class="form-control">
                                                     </select>
                                                 </div>
                                             </div>
@@ -241,6 +241,7 @@
                 }else{ //eval simple
                     $(".choixeleve").show();
                     $("#select_eleve > option").removeAttr("selected");
+                    $("#select_eleve").trigger("change");
                 }
             });
                //recuperation des competence selon la classe choisie

@@ -34,6 +34,9 @@ class HomeController extends Controller
         {
             //var_dump(Auth::user()->role);
             return redirect()->route('prof_index' );
+        }else if(Auth::user()->role == "eleve")
+        {
+            return redirect()->route('eleve_index' );
         }
     }
 
